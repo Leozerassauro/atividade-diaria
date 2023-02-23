@@ -13,7 +13,7 @@ export function SignIn() {
       bg="gray.700"
       justifyContent="center"
       alignItems="center"
-      p={8}
+      p={10}
     >
       <HStack mb={20}>
         <Icon as={Entypo} name="pin" color="green.700" size={6} />
@@ -21,8 +21,19 @@ export function SignIn() {
           Gestão de visita
         </Heading>
       </HStack>
-      <Input bg="gray.600" placeholder="Digite o usuário" mb={8} />
-      <Input bg="gray.600" placeholder="Digite a senha" mb={8} />
+      <Input
+        bg="gray.600"
+        placeholder="Digite o usuário"
+        mb={8}
+        autoCapitalize="none"
+      />
+      <Input
+        bg="gray.600"
+        placeholder="Digite a senha"
+        mb={16}
+        secureTextEntry
+        returnKeyType="send"
+      />
       <Button title="Entrar" />
     </VStack>
   )
