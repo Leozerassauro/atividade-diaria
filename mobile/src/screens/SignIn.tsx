@@ -1,17 +1,27 @@
 // Native
 import { VStack, Image } from 'native-base'
+import { useNavigation } from '@react-navigation/native'
 // Components
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
+// Routes
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
 // Assets
 import Logo from '@assets/logo.png'
 import BackgroundImg from '@assets/background.png'
 
 export function SignIn() {
+  const navigation = useNavigation<AuthNavigatorRoutesProps>()
+
+  function handleSignIn() {
+    navigation.navigate('signIn')
+  }
+
   return (
-    <VStack flex={1} bg="gray.700" p={10}>
+    <VStack flex={1} p={10}>
       <Image
         source={BackgroundImg}
+        defaultSource={BackgroundImg}
         alt="Imagem com produtos da empresa LNF"
         resizeMode="contain"
         position="absolute"
@@ -31,7 +41,7 @@ export function SignIn() {
           secureTextEntry
           returnKeyType="send"
         />
-        <Button title="Entrar" />
+        <Button title="Entrar" onPress={handleSignIn} />
       </VStack>
     </VStack>
   )
