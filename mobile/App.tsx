@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 // Native
-import { NativeBaseProvider, Heading, Center } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import { StatusBar } from 'react-native'
 import {
   useFonts,
@@ -13,6 +13,7 @@ import {
 // Components
 import { Loading } from '@components/Loading'
 import { THEME } from './src/theme'
+import { SignIn } from '@screens/SignIn'
 
 export default function App() {
   const fontLoaded = useFonts({
@@ -27,13 +28,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontLoaded ? (
-        <Center flex={1}>
-          <Heading>Hello World!</Heading>
-        </Center>
-      ) : (
-        <Loading />
-      )}
+      {fontLoaded ? <SignIn /> : <Loading />}
     </NativeBaseProvider>
   )
 }
