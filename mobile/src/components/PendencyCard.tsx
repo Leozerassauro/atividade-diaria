@@ -12,7 +12,7 @@ type Props = TouchableOpacityProps & {
 }
 
 export function PendencyCard({ title, content, ...rest }: Props) {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
   return (
     <TouchableOpacity {...rest}>
       {isLoading ? (

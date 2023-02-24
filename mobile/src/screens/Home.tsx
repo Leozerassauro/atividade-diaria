@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import { FlatList, Heading, HStack, Text, VStack } from 'native-base'
 // Components
-import { HomeHeader } from '@components/Header'
+import { HomeHeader } from '@components/HomeHeader'
 import { EmptyList } from '@components/EmptyList'
 import { PendencyCard } from '@components/PendencyCard'
 import { NavHome } from '@components/NavHome'
 
 export function Home() {
-  const [pendencies, setPendencies] = useState([
+  const [pendencies] = useState([
     { id: 1, title: 'Visita #01', content: 'Cliente' },
     { id: 2, title: 'Visita #02', content: 'Cliente, Status' },
     { id: 3, title: 'Visita #03', content: 'Cliente, Tamanho' },
