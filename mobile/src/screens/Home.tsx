@@ -5,7 +5,6 @@ import { FlatList, Heading, HStack, Text, VStack } from 'native-base'
 import { HomeHeader } from '@components/Header'
 import { EmptyList } from '@components/EmptyList'
 import { PendencyCard } from '@components/PendencyCard'
-import { Button } from '@components/Button'
 import { NavHome } from '@components/NavHome'
 
 export function Home() {

@@ -10,6 +10,7 @@ export function NavHome({ title, ...rest }: Props) {
     <Pressable
       w={40}
       h={16}
+      mt={5}
       mr={2}
       bg="gray.600"
       rounded="md"

@@ -25,12 +25,13 @@ export function PendencyCard({ ...rest }: Props) {
           bg="gray.500"
           alignItems="center"
           p={2}
-          pl={5}
-          pr={5}
+          px={4}
           rounded="md"
           mb={3}
+          borderLeftWidth={8}
+          borderLeftColor="red.500"
         >
-          <WarningSvg width={24} height={24} />
+          <WarningSvg width={26} height={26} />
           <VStack flex={1} ml={4}>
             <Heading fontSize="lg" color="gray.200">
               Visita #01
