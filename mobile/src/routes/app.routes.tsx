@@ -10,10 +10,8 @@ import { Home } from '@screens/Home'
 import { History } from '@screens/History'
 import { Report } from '@screens/Report'
 // Assets
-import HomeSvg from '@assets/home.svg'
-import HistorySvg from '@assets/history.svg'
-import ReportSvg from '@assets/report.svg'
-import { useTheme } from 'native-base'
+import { Icon, useTheme } from 'native-base'
+import { Entypo } from '@expo/vector-icons'
 
 type AppRoutes = {
   home: undefined
@@ -48,7 +46,7 @@ export function AppRoutes() {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <HomeSvg fill={color} width={24} height={24} />
+            <Icon as={Entypo} name="home" color={color} size={6} />
           ),
         }}
       />
@@ -57,7 +55,7 @@ export function AppRoutes() {
         component={History}
         options={{
           tabBarIcon: ({ color }) => (
-            <HistorySvg fill={color} width={24} height={24} />
+            <Icon as={Entypo} name="back-in-time" color={color} size={6} />
           ),
         }}
       />
@@ -66,7 +64,7 @@ export function AppRoutes() {
         component={Report}
         options={{
           tabBarIcon: ({ color }) => (
-            <ReportSvg fill={color} width={20} height={20} />
+            <Icon as={Entypo} name="clipboard" color={color} size={6} />
           ),
         }}
       />
