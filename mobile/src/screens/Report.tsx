@@ -1,9 +1,12 @@
-import { Center, Text } from 'native-base'
+// Native
+import { VStack } from 'native-base'
+// Components
+import { ScreenHeader } from '@components/ScreenHeader'
 
 export function Report() {
   return (
-    <Center flex={1}>
-      <Text>Report</Text>
-    </Center>
+    <VStack flex={1}>
+      <ScreenHeader title="relatórios" />
+    </VStack>
   )
 }

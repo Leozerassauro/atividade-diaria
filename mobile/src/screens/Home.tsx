@@ -23,7 +23,6 @@ export function Home() {
   return (
     <VStack flex={1}>
       <HomeHeader />
-
       <HStack p={8}>
         <NavHome title="registro da visita" />
         <NavHome title="planejamento do dia" />
