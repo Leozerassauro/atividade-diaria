@@ -5,18 +5,26 @@ import {
   createBottomTabNavigator,
   BottomTabNavigationProp,
 } from '@react-navigation/bottom-tabs'
+import { Icon, useTheme } from 'native-base'
 // Screens
 import { Home } from '@screens/Home'
 import { History } from '@screens/History'
 import { Report } from '@screens/Report'
+import { DayPlanning } from '@screens/DayPlanning'
+import { VisitRegistration } from '@screens/VisitRegistration'
+import { NewDayPlanning } from '@screens/NewDayPlanning'
 // Assets
-import { Icon, useTheme } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
+import { HistoryDayPlanning } from '@screens/HistoryDayPlanning'
 
 type AppRoutes = {
   home: undefined
   history: undefined
   report: undefined
+  visitRegistration: undefined
+  dayPlanning: undefined
+  newDayPlanning: undefined
+  historyDayPlanning: undefined
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
@@ -29,7 +37,7 @@ export function AppRoutes() {
     <Navigator
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
         tabBarActiveTintColor: colors.green[500],
         tabBarInactiveTintColor: colors.gray[200],
         tabBarStyle: {
@@ -66,6 +74,34 @@ export function AppRoutes() {
           tabBarIcon: ({ color }) => (
             <Icon as={Entypo} name="clipboard" color={color} size={6} />
           ),
+        }}
+      />
+      <Screen
+        name="visitRegistration"
+        component={VisitRegistration}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Screen
+        name="dayPlanning"
+        component={DayPlanning}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Screen
+        name="newDayPlanning"
+        component={NewDayPlanning}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Screen
+        name="historyDayPlanning"
+        component={HistoryDayPlanning}
+        options={{
+          tabBarButton: () => null,
         }}
       />
     </Navigator>

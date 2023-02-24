@@ -1,11 +1,14 @@
 // Native
 import { useState } from 'react'
 import { FlatList, Heading, HStack, Text, VStack } from 'native-base'
+import { useNavigation } from '@react-navigation/native'
 // Components
 import { HomeHeader } from '@components/HomeHeader'
 import { EmptyList } from '@components/EmptyList'
 import { PendencyCard } from '@components/PendencyCard'
 import { NavHome } from '@components/NavHome'
+// Routes
+import { AppNavigatorRoutesProps } from '@routes/app.routes'
 
 export function Home() {
   const [pendencies] = useState([
@@ -20,12 +23,25 @@ export function Home() {
     { id: 9, title: 'Visita #09', content: 'Cliente, Tamanho' },
   ])
 
+  const navigation = useNavigation<AppNavigatorRoutesProps>()
+
+  function handleOpenVisitRegistration() {
+    navigation.navigate('visitRegistration')
+  }
+
+  function handleOpenDayPlanning() {
+    navigation.navigate('dayPlanning')
+  }
+
   return (
     <VStack flex={1}>
       <HomeHeader />
       <HStack p={8}>
-        <NavHome title="registro da visita" />
-        <NavHome title="planejamento do dia" />
+        <NavHome
+          title="registro da visita"
+          onPress={handleOpenVisitRegistration}
+        />
+        <NavHome title="planejamento do dia" onPress={handleOpenDayPlanning} />
       </HStack>
       <VStack flex={1} px={8} mt={4}>
         <HStack justifyContent="space-between">

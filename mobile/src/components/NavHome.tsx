@@ -17,6 +17,7 @@ export function NavHome({ title, ...rest }: Props) {
       justifyContent="center"
       alignItems="center"
       overflow="hidden"
+      shadow="3"
       _pressed={{
         borderColor: 'green.500',
         borderWidth: 1,
