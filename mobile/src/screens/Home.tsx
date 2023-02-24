@@ -8,7 +8,18 @@ import { PendencyCard } from '@components/PendencyCard'
 import { NavHome } from '@components/NavHome'
 
 export function Home() {
-  const [pendencies, setPendencies] = useState([''])
+  const [pendencies, setPendencies] = useState([
+    { id: 1, title: 'Visita #01', content: 'Cliente' },
+    { id: 2, title: 'Visita #02', content: 'Cliente, Status' },
+    { id: 3, title: 'Visita #03', content: 'Cliente, Tamanho' },
+    { id: 4, title: 'Visita #04', content: 'Cliente' },
+    { id: 5, title: 'Visita #05', content: 'Cliente, Tamanho' },
+    { id: 6, title: 'Visita #06', content: 'Cliente' },
+    { id: 7, title: 'Visita #07', content: 'Cliente, Tamanho' },
+    { id: 8, title: 'Visita #08', content: 'Cliente' },
+    { id: 9, title: 'Visita #09', content: 'Cliente, Tamanho' },
+  ])
+
   return (
     <VStack flex={1}>
       <HomeHeader />
@@ -28,8 +39,10 @@ export function Home() {
         </HStack>
         <FlatList
           data={pendencies}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => <PendencyCard />}
+          keyExtractor={(item, index) => item.id.toString()}
+          renderItem={({ item }) => (
+            <PendencyCard title={item.title} content={item.content} />
+          )}
           showsVerticalScrollIndicator={false}
           _contentContainerStyle={{ paddingBottom: 10 }}
           contentContainerStyle={

@@ -6,9 +6,12 @@ import { Heading, HStack, Icon, Skeleton, Text, VStack } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import WarningSvg from '@assets/warning.svg'
 
-type Props = TouchableOpacityProps
+type Props = TouchableOpacityProps & {
+  title: string
+  content: string
+}
 
-export function PendencyCard({ ...rest }: Props) {
+export function PendencyCard({ title, content, ...rest }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   return (
     <TouchableOpacity {...rest}>
@@ -34,10 +37,10 @@ export function PendencyCard({ ...rest }: Props) {
           <WarningSvg width={26} height={26} />
           <VStack flex={1} ml={4}>
             <Heading fontSize="lg" color="gray.200">
-              Visita #01
+              {title}
             </Heading>
             <Text fontSize="sm" color="gray.300" mt={1} numberOfLines={1}>
-              Cliente
+              {content}
             </Text>
           </VStack>
           <Icon as={Entypo} name="chevron-thin-right" color="gray.300" />
