@@ -11,6 +11,9 @@ import {
 } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 
+// Components
+import { DeleteModal } from './DeleteModal'
+
 type Props = {
   clientName: string
   location: {
@@ -22,6 +25,7 @@ type Props = {
   period: string
   activity: string[]
   visitType: string
+  onDelete: (clientName: string) => void
 }
 
 export function HistoryDayPlanningCard({
@@ -31,9 +35,10 @@ export function HistoryDayPlanningCard({
   period,
   activity,
   visitType,
+  onDelete,
 }: Props) {
   const [isLoading] = useState(false)
-  const data = [
+  const [card] = useState([
     {
       label: 'Endereço',
       value: `${location.address}, ${location.city}, ${location.state}`,
@@ -54,10 +59,29 @@ export function HistoryDayPlanningCard({
       label: 'Tipo',
       value: visitType,
     },
-  ]
+  ])
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true)
+  }
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false)
+  }
+
+  const handleDeleteCard = () => {
+    console.log(`Deletou a visita com o cliente ${clientName}`)
+    setIsDeleteModalOpen(false)
+  }
 
   return (
     <>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onDelete={handleDeleteCard}
+      />
       {isLoading ? (
         <Skeleton
           h={20}
@@ -83,11 +107,21 @@ export function HistoryDayPlanningCard({
               >
                 {clientName}
               </Heading>
-              <Pressable bg="gray.700" p={2} rounded="md">
-                <Icon as={Entypo} name="edit" color="#F7F15A" />
-              </Pressable>
+              <HStack>
+                <Pressable bg="gray.700" p={2} mr={2} rounded="md">
+                  <Icon as={Entypo} name="edit" color="gray.200" />
+                </Pressable>
+                <Pressable
+                  bg="gray.700"
+                  p={2}
+                  rounded="md"
+                  onPress={handleOpenDeleteModal}
+                >
+                  <Icon as={Entypo} name="trash" color="gray.200" />
+                </Pressable>
+              </HStack>
             </HStack>
-            {data.map((item, index) => (
+            {card.map((item, index) => (
               <>
                 <Text
                   textTransform="capitalize"

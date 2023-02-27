@@ -1,13 +1,13 @@
 // Native
 import { useState } from 'react'
-import { FlatList, Heading, SectionList, VStack } from 'native-base'
+import { FlatList, VStack } from 'native-base'
 // Components
 import { ScreenHeader } from '@components/ScreenHeader'
 import { HistoryDayPlanningCard } from '@components/HistoryDayPlanningCard'
 import { EmptyList } from '@components/EmptyList'
 
 export function HistoryDayPlanning() {
-  const [visits] = useState([
+  const [visits, setVisits] = useState([
     {
       id: 1,
       clientName: 'Cliente 01',
@@ -49,6 +49,8 @@ export function HistoryDayPlanning() {
     },
   ])
 
+  const handleDeleteDayPlanning = () => {}
+
   return (
     <VStack flex={1}>
       <ScreenHeader title="Histórico de Planejamentos" />
@@ -63,6 +65,7 @@ export function HistoryDayPlanning() {
             period={item.period}
             activity={item.activity}
             visitType={item.visitType}
+            onDelete={handleDeleteDayPlanning}
           />
         )}
         showsVerticalScrollIndicator={false}
