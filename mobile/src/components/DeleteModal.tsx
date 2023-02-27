@@ -20,7 +20,7 @@ export function DeleteModal({ isOpen, onClose, onDelete }: Props) {
       _backdrop={{ opacity: 0.9, backgroundColor: 'gray.700' }}
     >
       <Modal.Content>
-        <Modal.Header bg="gray.500" borderBottomColor="green.500">
+        <Modal.Header bg="gray.500" borderBottomColor="red.500">
           <Heading fontFamily="heading" fontSize={16} color="gray.100">
             Deletar Planejamento
           </Heading>
