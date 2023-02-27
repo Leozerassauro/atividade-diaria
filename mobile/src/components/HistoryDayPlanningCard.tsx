@@ -25,7 +25,7 @@ type Props = {
   period: string
   activity: string[]
   visitType: string
-  onDelete: (clientName: string) => void
+  onDelete: () => void
 }
 
 export function HistoryDayPlanningCard({
@@ -53,7 +53,7 @@ export function HistoryDayPlanningCard({
     },
     {
       label: 'Atividade',
-      value: activity,
+      value: `${activity}`,
     },
     {
       label: 'Tipo',
@@ -70,21 +70,17 @@ export function HistoryDayPlanningCard({
     setIsDeleteModalOpen(false)
   }
 
-  const handleDeleteCard = () => {
-    console.log(`Deletou a visita com o cliente ${clientName}`)
-    setIsDeleteModalOpen(false)
-  }
-
   return (
     <>
       <DeleteModal
+        title="Deletar Planejamento"
         isOpen={isDeleteModalOpen}
         onClose={handleCloseDeleteModal}
-        onDelete={handleDeleteCard}
+        onDelete={onDelete}
       />
       {isLoading ? (
         <Skeleton
-          h={20}
+          h={80}
           rounded="md"
           startColor="gray.600"
           endColor="gray.400"
@@ -108,13 +104,30 @@ export function HistoryDayPlanningCard({
                 {clientName}
               </Heading>
               <HStack>
-                <Pressable bg="gray.700" p={2} mr={2} rounded="md">
+                <Pressable
+                  bg="gray.700"
+                  borderColor="gray.700"
+                  borderWidth={1}
+                  p={2}
+                  mr={2}
+                  rounded="md"
+                  _pressed={{
+                    borderColor: 'green.500',
+                    borderWidth: 1,
+                  }}
+                >
                   <Icon as={Entypo} name="edit" color="gray.200" />
                 </Pressable>
                 <Pressable
                   bg="gray.700"
+                  borderColor="gray.700"
+                  borderWidth={1}
                   p={2}
                   rounded="md"
+                  _pressed={{
+                    borderColor: 'red.500',
+                    borderWidth: 1,
+                  }}
                   onPress={handleOpenDeleteModal}
                 >
                   <Icon as={Entypo} name="trash" color="gray.200" />

@@ -5,10 +5,10 @@ type Props = IPressableProps & {
   title: string
 }
 
-export function NavHome({ title, ...rest }: Props) {
+export function NavButton({ title, ...rest }: Props) {
   return (
     <Pressable
-      w={40}
+      w="full"
       h={16}
       mt={5}
       mr={2}

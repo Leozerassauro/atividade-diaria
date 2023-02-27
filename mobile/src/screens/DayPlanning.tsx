@@ -2,7 +2,7 @@
 import { Center, VStack } from 'native-base'
 import { useNavigation } from '@react-navigation/native'
 // Components
-import { NavHome } from '@components/NavHome'
+import { NavButton } from '@components/NavButton'
 import { ScreenHeader } from '@components/ScreenHeader'
 // Routes
 import { AppNavigatorRoutesProps } from '@routes/app.routes'
@@ -23,12 +23,12 @@ export function DayPlanning() {
       <ScreenHeader title="Planejamento do dia" />
 
       <Center flex={1} p={8}>
-        <NavHome
+        <NavButton
           title="Novo planejamento"
           w="full"
           onPress={handleNewDayPlanning}
         />
-        <NavHome
+        <NavButton
           title="Consultar planejamentos"
           w="full"
           onPress={handleOpenHistoryDayPlanning}

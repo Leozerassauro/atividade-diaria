@@ -2,12 +2,13 @@
 import { Button, Heading, HStack, Modal, Text } from 'native-base'
 
 type Props = {
+  title: string
   isOpen: boolean
   onClose: () => void
   onDelete: () => void
 }
 
-export function DeleteModal({ isOpen, onClose, onDelete }: Props) {
+export function DeleteModal({ title, isOpen, onClose, onDelete }: Props) {
   const handleDelete = () => {
     onDelete()
     onClose()
@@ -21,8 +22,13 @@ export function DeleteModal({ isOpen, onClose, onDelete }: Props) {
     >
       <Modal.Content>
         <Modal.Header bg="gray.500" borderBottomColor="red.500">
-          <Heading fontFamily="heading" fontSize={16} color="gray.100">
-            Deletar Planejamento
+          <Heading
+            fontFamily="heading"
+            fontSize={16}
+            color="gray.100"
+            textTransform="uppercase"
+          >
+            {title}
           </Heading>
         </Modal.Header>
         <Modal.Body bg="gray.500">

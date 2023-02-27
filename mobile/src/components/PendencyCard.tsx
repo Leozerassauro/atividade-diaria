@@ -33,6 +33,7 @@ export function PendencyCard({ title, content, ...rest }: Props) {
           mb={3}
           borderLeftWidth={8}
           borderLeftColor="red.500"
+          shadow="3"
         >
           <WarningSvg width={26} height={26} />
           <VStack flex={1} ml={4}>

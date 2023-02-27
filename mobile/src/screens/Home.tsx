@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { HomeHeader } from '@components/HomeHeader'
 import { EmptyList } from '@components/EmptyList'
 import { PendencyCard } from '@components/PendencyCard'
-import { NavHome } from '@components/NavHome'
+import { NavButton } from '@components/NavButton'
 // Routes
 import { AppNavigatorRoutesProps } from '@routes/app.routes'
 
@@ -37,11 +37,16 @@ export function Home() {
     <VStack flex={1}>
       <HomeHeader />
       <HStack p={8}>
-        <NavHome
+        <NavButton
           title="registro da visita"
+          w={40}
           onPress={handleOpenVisitRegistration}
         />
-        <NavHome title="planejamento do dia" onPress={handleOpenDayPlanning} />
+        <NavButton
+          title="planejamento do dia"
+          w={40}
+          onPress={handleOpenDayPlanning}
+        />
       </HStack>
       <VStack flex={1} px={8} mt={4}>
         <HStack justifyContent="space-between">

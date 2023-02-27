@@ -7,10 +7,10 @@ import { HistoryDayPlanningCard } from '@components/HistoryDayPlanningCard'
 import { EmptyList } from '@components/EmptyList'
 
 export function HistoryDayPlanning() {
-  const [visits, setVisits] = useState([
+  const [data, setData] = useState([
     {
       id: 1,
-      clientName: 'Cliente 01',
+      clientName: 'Cliente 01 EIRELI',
       location: {
         address: 'Rua teste',
         city: 'Cidade teste',
@@ -23,13 +23,13 @@ export function HistoryDayPlanning() {
     },
     {
       id: 2,
-      clientName: 'Cliente 02 EIRELI',
+      clientName: 'Cliente 02 ME',
       location: {
         address: 'Rua teste',
         city: 'Cidade teste',
         state: 'Estado teste',
       },
-      date: '22/02/2023',
+      date: '28/02/2023',
       period: 'Manhã',
       activity: ['Visita Lead', 'Treinamento'],
       visitType: 'Agendada',
@@ -42,20 +42,23 @@ export function HistoryDayPlanning() {
         city: 'Cidade teste',
         state: 'Estado teste',
       },
-      date: '22/02/2023',
+      date: '25/02/2023',
       period: 'Manhã',
       activity: ['Visita Lead', 'Treinamento'],
       visitType: 'Agendada',
     },
   ])
 
-  const handleDeleteDayPlanning = () => {}
+  const handleDeleteCard = (id: number) => {
+    const newData = data.filter((data) => data.id !== id)
+    setData(newData)
+  }
 
   return (
     <VStack flex={1}>
-      <ScreenHeader title="Histórico de Planejamentos" />
+      <ScreenHeader title="Planejamentos Cadastrados" />
       <FlatList
-        data={visits}
+        data={data.sort((a, b) => a.clientName.localeCompare(b.clientName))}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <HistoryDayPlanningCard
@@ -65,13 +68,13 @@ export function HistoryDayPlanning() {
             period={item.period}
             activity={item.activity}
             visitType={item.visitType}
-            onDelete={handleDeleteDayPlanning}
+            onDelete={() => handleDeleteCard(item.id)}
           />
         )}
         showsVerticalScrollIndicator={false}
         _contentContainerStyle={{ paddingBottom: 10 }}
         contentContainerStyle={
-          visits.length === 0 && { flex: 1, justifyContent: 'center' }
+          data.length === 0 && { flex: 1, justifyContent: 'center' }
         }
         ListEmptyComponent={() => (
           <EmptyList title="Não há cadastros pendentes" />
