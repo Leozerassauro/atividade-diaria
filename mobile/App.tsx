@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 // Native
-import { NativeBaseProvider, Heading, Center } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import { StatusBar } from 'react-native'
 import {
   useFonts,
@@ -9,10 +9,11 @@ import {
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto'
 // Theme
-
+import { THEME } from './src/theme'
 // Components
 import { Loading } from '@components/Loading'
-import { THEME } from './src/theme'
+// Routes
+import { Routes } from '@routes/index'
 
 export default function App() {
   const fontLoaded = useFonts({
@@ -23,17 +24,11 @@ export default function App() {
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
-        barStyle="dark-content"
+        barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-      {fontLoaded ? (
-        <Center flex={1}>
-          <Heading>Hello World!</Heading>
-        </Center>
-      ) : (
-        <Loading />
-      )}
+      {fontLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   )
 }
