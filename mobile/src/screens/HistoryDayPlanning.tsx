@@ -18,7 +18,7 @@ export function HistoryDayPlanning() {
       },
       date: '22/02/2023',
       period: 'Manhã',
-      activity: ['Visita Lead', 'Treinamento'],
+      activity: ['Visita Lead', ' Treinamento', ' Deslocamento'],
       visitType: 'Agendada',
     },
     {
