@@ -1,16 +1,29 @@
 // Native
+import { useState } from 'react'
 import { Box, VStack } from 'native-base'
 // Components
 import { ScreenHeader } from '@components/ScreenHeader'
-import { DatePicker } from '@components/DatePicker'
+import { ClientForm } from '@components/ClientForm'
+import { StatusForm } from '@components/StatusForm'
+import { SizeForm } from '@components/SizeForm'
+import { NextActionForm } from '@components/NextActionForm'
+import { ValuesForm } from '@components/ValuesForm'
+import { DecisionForm } from '@components/DecisionForm'
 
 export function VisitRegistration() {
+  const [currentStep, setCurrentStep] = useState(5)
+  const steps = [
+    <ClientForm />,
+    <StatusForm />,
+    <SizeForm />,
+    <NextActionForm />,
+    <ValuesForm />,
+    <DecisionForm />,
+  ]
   return (
-    <VStack>
+    <VStack flex={1}>
       <ScreenHeader title="registro de visita" />
-      <Box p={8}>
-        <DatePicker />
-      </Box>
+      <Box flex={1}>{steps[currentStep]}</Box>
     </VStack>
   )
 }
