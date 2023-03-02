@@ -102,7 +102,7 @@ export function DecisionForm() {
         <PageTitles title="Tomada de decisão" hasIcon />
 
         {forms.map((form, index) => (
-          <>
+          <Box key={index}>
             <VStack
               key={index}
               flex={1}
@@ -170,7 +170,7 @@ export function DecisionForm() {
                 />
               </VStack>
             </VStack>
-          </>
+          </Box>
         ))}
         <Center mb={4}>
           <AddButton

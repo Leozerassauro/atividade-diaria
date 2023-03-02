@@ -89,7 +89,7 @@ export function HistoryDayPlanningCard({
               <HStack>
                 <Pressable
                   bg="gray.700"
-                  borderColor="gray.700"
+                  borderColor="gray.400"
                   borderWidth={1}
                   p={2}
                   mr={2}
@@ -103,7 +103,7 @@ export function HistoryDayPlanningCard({
                 </Pressable>
                 <Pressable
                   bg="gray.700"
-                  borderColor="gray.700"
+                  borderColor="gray.400"
                   borderWidth={1}
                   p={2}
                   rounded="md"

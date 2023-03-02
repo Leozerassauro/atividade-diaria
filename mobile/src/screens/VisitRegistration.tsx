@@ -9,6 +9,7 @@ import { SizeForm } from '@components/SizeForm'
 import { NextActionForm } from '@components/NextActionForm'
 import { ValuesForm } from '@components/ValuesForm'
 import { DecisionForm } from '@components/DecisionForm'
+import { ObservationsForm } from '@components/ObservationsForm'
 
 export function VisitRegistration() {
   const [currentStep, setCurrentStep] = useState(5)
@@ -19,6 +20,7 @@ export function VisitRegistration() {
     <NextActionForm />,
     <ValuesForm />,
     <DecisionForm />,
+    <ObservationsForm />,
   ]
   return (
     <VStack flex={1}>
