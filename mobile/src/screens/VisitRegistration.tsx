@@ -12,7 +12,7 @@ import { DecisionForm } from '@components/DecisionForm'
 import { ObservationsForm } from '@components/ObservationsForm'
 
 export function VisitRegistration() {
-  const [currentStep, setCurrentStep] = useState(5)
+  const [currentStep, setCurrentStep] = useState(6)
   const steps = [
     <ClientForm />,
     <StatusForm />,

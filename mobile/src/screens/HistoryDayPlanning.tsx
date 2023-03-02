@@ -91,7 +91,7 @@ export function HistoryDayPlanning() {
           data.length === 0 && { flex: 1, justifyContent: 'center' }
         }
         ListEmptyComponent={() => (
-          <EmptyList title="Não há cadastros pendentes" />
+          <EmptyList title="Não há planejamentos cadastrados" />
         )}
         p={8}
       />
