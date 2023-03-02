@@ -14,27 +14,18 @@ export function History() {
         {
           id: 1,
           title: 'Visita 01',
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
           clientName: 'Cliente 01',
-        },
-        {
-          id: 2,
-          title: 'Visita 02',
-          clientName: 'Cliente 02',
-        },
-        {
-          id: 3,
-          title: 'Visita 03',
-          clientName: 'Cliente 03',
-        },
-      ],
-    },
-    {
-      title: '24/02/2023',
-      data: [
-        {
-          id: 4,
-          title: 'Visita 01',
-          clientName: 'Cliente 01',
+          status: 'Cliente',
+          size: '1000',
+          nextAction: ['Cotar'],
+          values: 'atenção',
+          decision: 'email',
+          observation: 'observações',
         },
       ],
     },
@@ -48,7 +39,16 @@ export function History() {
         sections={visits}
         keyExtractor={(item, index) => item.id.toString()}
         renderItem={({ item }) => (
-          <HistoryCard title={item.title} clientName={item.clientName} />
+          <HistoryCard
+            clientName={item.clientName}
+            location={item.location}
+            status={item.status}
+            size={item.size}
+            nextAction={item.nextAction}
+            values={item.values}
+            decision={item.decision}
+            observation={item.observation}
+          />
         )}
         renderSectionHeader={({ section }) => (
           <Heading
