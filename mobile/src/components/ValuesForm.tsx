@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { VStack } from 'native-base'
 // Components
 import { Rating } from '@components/Rating'
-import { Fields } from '@components/Fields'
+import { PageTitles } from '@components/PageTitles'
 import { Button } from '@components/Button'
 
 export function ValuesForm() {
@@ -22,7 +22,7 @@ export function ValuesForm() {
     }))
   }
 
-  function handleAddValues() {
+  function handleSubmitValues() {
     setValues(values)
     console.log(values)
   }
@@ -30,7 +30,7 @@ export function ValuesForm() {
   return (
     <VStack flex={1}>
       <VStack flex={1} p={8}>
-        <Fields title="Valores" hasIcon />
+        <PageTitles title="Valores" hasIcon />
         <VStack flex={1} bg="gray.600" p={6} rounded="md">
           <VStack flex={1} mt={8} justifyContent="space-between">
             {options.map((option) => (
@@ -43,7 +43,7 @@ export function ValuesForm() {
             ))}
           </VStack>
         </VStack>
-        <Button title="Próximo" onPress={handleAddValues} />
+        <Button title="Próximo" onPress={handleSubmitValues} />
       </VStack>
     </VStack>
   )

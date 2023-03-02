@@ -1,6 +1,6 @@
 // Native
-import { Text, VStack } from 'native-base'
 import { useState } from 'react'
+import { useTheme } from 'native-base'
 import { Calendar, LocaleConfig } from 'react-native-calendars'
 
 LocaleConfig.locales['pt-br'] = {
@@ -47,9 +47,10 @@ LocaleConfig.locales['pt-br'] = {
 LocaleConfig.defaultLocale = 'pt-br'
 
 export function DatePicker() {
-  const [markedDates, setMarkedDates] = useState({})
+  const { colors } = useTheme()
+  const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({})
 
-  const handleDayPress = (day) => {
+  const handleDayPress = (day: { dateString: string }) => {
     const { dateString } = day
     console.log(dateString)
     setMarkedDates({
@@ -66,19 +67,19 @@ export function DatePicker() {
         borderRadius: 10,
       }}
       theme={{
-        backgroundColor: '#202024',
-        calendarBackground: '#202024',
-        textSectionTitleColor: '#7C7C8A',
-        textSectionTitleDisabledColor: '#323238',
-        selectedDayBackgroundColor: '#008943',
-        selectedDayTextColor: '#E1E1E6',
-        todayTextColor: '#00E36E',
-        dayTextColor: '#E1E1E6',
-        textDisabledColor: '#323238',
-        selectedDotColor: '#ffffff',
-        arrowColor: '#008943',
-        disabledArrowColor: '#323238',
-        monthTextColor: '#E1E1E6',
+        backgroundColor: colors.gray[600],
+        calendarBackground: colors.gray[600],
+        textSectionTitleColor: colors.gray[300],
+        textSectionTitleDisabledColor: colors.gray[400],
+        selectedDayBackgroundColor: colors.green[700],
+        selectedDayTextColor: colors.gray[100],
+        todayTextColor: colors.green[500],
+        dayTextColor: colors.gray[100],
+        textDisabledColor: colors.gray[400],
+        selectedDotColor: colors.white,
+        arrowColor: colors.green[700],
+        disabledArrowColor: colors.gray[400],
+        monthTextColor: colors.gray[100],
         textDayFontWeight: '300',
         textMonthFontWeight: 'bold',
         textDayHeaderFontWeight: '300',

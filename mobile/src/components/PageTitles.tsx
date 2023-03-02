@@ -4,12 +4,13 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
+// Interfaces
 type Props = TouchableOpacityProps & {
-  title: any
-  hasIcon: boolean
+  title: string
+  hasIcon?: boolean
 }
 
-export function Fields({ title, hasIcon, ...rest }: Props) {
+export function PageTitles({ title, hasIcon, ...rest }: Props) {
   return (
     <HStack p={4} mb={6} bg="gray.600" rounded="md" alignItems="center">
       {hasIcon && (
@@ -30,7 +31,7 @@ export function Fields({ title, hasIcon, ...rest }: Props) {
           fontSize="xl"
           fontWeight="bold"
           position="relative"
-          right={4}
+          right={2}
         >
           {title}
         </Text>

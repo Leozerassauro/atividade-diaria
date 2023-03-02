@@ -59,7 +59,7 @@ export function Home() {
         </HStack>
         <FlatList
           data={pendencies}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <PendencyCard title={item.title} content={item.content} />
           )}

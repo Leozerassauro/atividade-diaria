@@ -1,5 +1,6 @@
 // Native
 import { useState } from 'react'
+import { Alert } from 'react-native'
 import { FlatList, VStack } from 'native-base'
 // Components
 import { ScreenHeader } from '@components/ScreenHeader'
@@ -49,9 +50,22 @@ export function HistoryDayPlanning() {
     },
   ])
 
-  const handleDeleteCard = (id: number) => {
-    const newData = data.filter((data) => data.id !== id)
-    setData(newData)
+  function handleDeleteCard(id: number) {
+    return Alert.alert(
+      'Remover planejamento',
+      `Tem certeza de que quer remover esse planejamento?`,
+      [
+        {
+          text: 'Sim',
+          onPress: () =>
+            setData((prevState) => prevState.filter((data) => data.id !== id)),
+        },
+        {
+          text: 'Não',
+          style: 'cancel',
+        },
+      ],
+    )
   }
 
   return (

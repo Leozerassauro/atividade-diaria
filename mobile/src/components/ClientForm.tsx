@@ -5,7 +5,7 @@ import { Icon, ScrollView, VStack } from 'native-base'
 // Components
 import { Input } from '@components/Input'
 import { Checkbox } from '@components/Checkbox'
-import { Fields } from '@components/Fields'
+import { PageTitles } from '@components/PageTitles'
 import { Button } from '@components/Button'
 // Assets
 import { Entypo } from '@expo/vector-icons'
@@ -24,15 +24,13 @@ export function ClientForm() {
     }
   }
 
-  console.log(client)
-
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
     >
       <VStack flex={1} p={8}>
-        <Fields title="Cliente" hasIcon />
+        <PageTitles title="Cliente" hasIcon />
         <VStack flex={1} bg="gray.600" p={8} rounded="md">
           <Input
             textAlignVertical="center"

@@ -4,23 +4,30 @@ import { Alert } from 'react-native'
 import { Center, Text, VStack, ScrollView } from 'native-base'
 // Components
 import { Input } from '@components/Input'
-import { Fields } from '@components/Fields'
+import { PageTitles } from '@components/PageTitles'
 import { Button } from '@components/Button'
+import { Checkbox } from '@components/Checkbox'
 
 export function SizeForm() {
   const [size, setSize] = useState('')
+  const [checked, setChecked] = useState(false)
 
-  function handleAddSize() {
+  function handleSubmitSize() {
     try {
-      if (!size.trim()) {
+      const newSize = checked ? 0 : size
+
+      if (
+        (isNaN(Number(size)) && !checked) ||
+        (Number(size) <= 0 && !checked)
+      ) {
         return Alert.alert(
-          'Tamanho não informado',
-          'Informe o tamanho da cervejaria',
+          'Tamanho inválido',
+          'Informe um número válido para o tamanho da cervejaria.',
         )
       }
-      console.log(size)
-      setSize(size)
+      setSize(String(newSize))
       setSize('')
+      console.log(newSize)
     } catch (error) {
       console.log(error)
       Alert.alert('Ops', 'Alguma coisa deu errado o tamanho')
@@ -33,22 +40,35 @@ export function SizeForm() {
       showsVerticalScrollIndicator={false}
     >
       <VStack flex={1} p={8}>
-        <Fields title="Tamanho" hasIcon />
+        <PageTitles title="Tamanho" hasIcon />
         <VStack flex={1} bg="gray.600" p={8} rounded="md">
           <Center flex={1} justifyContent="space-evenly">
             <Input
               bg="gray.700"
               placeholder="Litragem por mês"
               keyboardType="numeric"
-              value={size}
-              onChangeText={(size) => setSize(size)}
+              isDisabled={checked}
+              _disabled={{
+                value: '',
+              }}
+              value={size.toString()}
+              onChangeText={setSize}
             />
             <Text color="gray.200" fontSize="lg">
-              {size} L/mês
+              {Number(size)
+                .toFixed(0)
+                .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}{' '}
+              L/mês
             </Text>
+            <Checkbox
+              value=""
+              mt={12}
+              onChange={() => setChecked(!checked)}
+              title="Não produz cerveja"
+            />
           </Center>
         </VStack>
-        <Button title="Próximo" onPress={handleAddSize} />
+        <Button title="Próximo" onPress={handleSubmitSize} />
       </VStack>
     </ScrollView>
   )

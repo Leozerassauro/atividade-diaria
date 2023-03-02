@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { Alert } from 'react-native'
 import { Box, Center, Radio, Text, VStack } from 'native-base'
 // Components
-import { Fields } from '@components/Fields'
+import { PageTitles } from '@components/PageTitles'
 import { Button } from '@components/Button'
 
 export function StatusForm() {
   const [status, setStatus] = useState('')
 
-  async function handleAddStatus() {
+  async function handleSubmitStatus() {
     try {
       if (!status) {
         return Alert.alert(
@@ -29,7 +29,7 @@ export function StatusForm() {
   return (
     <VStack flex={1}>
       <VStack flex={1} p={8}>
-        <Fields title="Status" hasIcon />
+        <PageTitles title="Status" hasIcon />
         <VStack flex={1} bg="gray.600" p={8} rounded="md">
           <Center flex={1} justifyContent="space-evenly">
             <Radio.Group
@@ -59,7 +59,7 @@ export function StatusForm() {
             </Radio.Group>
           </Center>
         </VStack>
-        <Button title="Próximo" onPress={handleAddStatus} />
+        <Button title="Próximo" onPress={handleSubmitStatus} />
       </VStack>
     </VStack>
   )

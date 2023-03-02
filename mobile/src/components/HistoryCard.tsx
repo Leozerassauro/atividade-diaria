@@ -1,14 +1,15 @@
 // Native
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { Heading, HStack, VStack, Text, Skeleton } from 'native-base'
 
+// Interfaces
 type Props = {
   title: string
   clientName: string
 }
 
 export function HistoryCard({ title, clientName }: Props) {
-  const [isLoading] = useState(false)
+  const isLoading = useMemo(() => false, [])
 
   return (
     <>

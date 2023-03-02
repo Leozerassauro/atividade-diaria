@@ -4,13 +4,13 @@ import { Alert } from 'react-native'
 import { ScrollView, VStack } from 'native-base'
 // Components
 import { Checkbox } from '@components/Checkbox'
-import { Fields } from '@components/Fields'
+import { PageTitles } from '@components/PageTitles'
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 
 export function NextActionForm() {
   const [checked, setChecked] = useState(false)
-  const [options, setOptions] = useState<number[]>([])
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([])
   const [otherOption, setOtherOption] = useState('')
   const multipleOptions = [
     'Cotar',
@@ -21,29 +21,29 @@ export function NextActionForm() {
   ]
 
   function handleToggleOption(optionIndex: number) {
-    if (options.includes(optionIndex)) {
-      setOptions((prevState) =>
+    if (selectedOptions.includes(optionIndex)) {
+      setSelectedOptions((prevState) =>
         prevState.filter((option) => option !== optionIndex),
       )
     } else {
-      setOptions((prevState) => [...prevState, optionIndex])
+      setSelectedOptions((prevState) => [...prevState, optionIndex])
     }
   }
 
-  function handleAddActions() {
+  function handleSubmitActions() {
     try {
-      if (options.length === 0 && otherOption === '') {
+      if (selectedOptions.length === 0 && otherOption === '') {
         return Alert.alert(
           'Ações não informadas',
-          'Informe pelo menos uma ação',
+          'Informe pelo menos uma ação para continuar.',
         )
       }
-      if (checked) {
-        setOtherOption(otherOption)
-        console.log(otherOption)
-      }
-      setOptions(options)
-      setOptions([])
+
+      const nextActions = checked
+        ? [...selectedOptions, otherOption]
+        : selectedOptions
+      console.log(nextActions)
+      setSelectedOptions([])
       setOtherOption('')
     } catch (error) {
       console.log(error)
@@ -51,15 +51,13 @@ export function NextActionForm() {
     }
   }
 
-  console.log(options)
-
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
     >
       <VStack flex={1} p={8}>
-        <Fields title="Próxima ação" hasIcon />
+        <PageTitles title="Próxima ação" hasIcon />
         <VStack flex={1} bg="gray.600" p={8} rounded="md">
           <VStack flex={1} justifyContent="space-between">
             {multipleOptions.map((option, index) => (
@@ -67,7 +65,7 @@ export function NextActionForm() {
                 value=""
                 key={option}
                 title={option}
-                isChecked={options.includes(index)}
+                isChecked={selectedOptions.includes(index)}
                 onChange={() => handleToggleOption(index)}
               />
             ))}
@@ -87,7 +85,7 @@ export function NextActionForm() {
             )}
           </VStack>
         </VStack>
-        <Button title="Próximo" onPress={handleAddActions} />
+        <Button title="Próximo" onPress={handleSubmitActions} />
       </VStack>
     </ScrollView>
   )

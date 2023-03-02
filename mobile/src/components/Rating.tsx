@@ -10,9 +10,9 @@ type Props = ISliderProps & {
 export function Rating({ label, onChange, ...rest }: Props) {
   const [onChangeValue, setOnChangeValue] = useState(0)
 
-  function handleValueChange(value: number) {
-    setOnChangeValue(value)
-    onChange(value)
+  function handleValueChange(newValue: number) {
+    setOnChangeValue(newValue)
+    onChange(newValue)
   }
 
   return (
@@ -22,10 +22,10 @@ export function Rating({ label, onChange, ...rest }: Props) {
       </Text>
       <HStack>
         <Slider
+          aria-label={label}
           colorScheme="green"
           minValue={0}
           maxValue={5}
-          step={1}
           w={120}
           onChange={handleValueChange}
           {...rest}

@@ -6,11 +6,12 @@ import {
   Text,
 } from 'native-base'
 
+// Interfaces
 type Props = IButtonProps & {
   title: string
 }
 
-export function Button({ title, ...rest }: Props) {
+export function Button({ title, ...props }: Props) {
   return (
     <Box bg="gray.600" p={4} mt={6} rounded="md">
       <NativeBaseButton
@@ -21,7 +22,7 @@ export function Button({ title, ...rest }: Props) {
         _pressed={{
           bg: 'green.500',
         }}
-        {...rest}
+        {...props}
       >
         <Text color="gray.100" fontFamily="heading" fontSize="md">
           {title}
