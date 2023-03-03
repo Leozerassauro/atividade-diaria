@@ -16,7 +16,7 @@ export function Rating({ label, onChange, ...rest }: Props) {
   }
 
   return (
-    <HStack justifyContent="space-between" alignItems="center">
+    <HStack justifyContent="space-between" alignItems="center" mb={4}>
       <Text color="gray.200" fontSize="md">
         {label}
       </Text>

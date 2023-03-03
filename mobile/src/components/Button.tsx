@@ -13,7 +13,7 @@ type Props = IButtonProps & {
 
 export function Button({ title, ...props }: Props) {
   return (
-    <Box bg="gray.600" p={4} mt={6} rounded="md">
+    <Box bg="gray.600" p={4} mt={4} rounded="md">
       <NativeBaseButton
         w="full"
         h={14}

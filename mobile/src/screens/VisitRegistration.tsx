@@ -1,31 +1,35 @@
 // Native
-import { useState } from 'react'
-import { Box, VStack } from 'native-base'
+// import { useState } from 'react'
+import { Box, ScrollView, VStack } from 'native-base'
 // Components
 import { ScreenHeader } from '@components/ScreenHeader'
-import { ClientForm } from '@components/ClientForm'
-import { StatusForm } from '@components/StatusForm'
-import { SizeForm } from '@components/SizeForm'
-import { NextActionForm } from '@components/NextActionForm'
-import { ValuesForm } from '@components/ValuesForm'
-import { DecisionForm } from '@components/DecisionForm'
-import { ObservationsForm } from '@components/ObservationsForm'
+import { Form } from '@components/Form'
+import { Button } from '@components/Button'
 
 export function VisitRegistration() {
-  const [currentStep, setCurrentStep] = useState(6)
-  const steps = [
-    <ClientForm />,
-    <StatusForm />,
-    <SizeForm />,
-    <NextActionForm />,
-    <ValuesForm />,
-    <DecisionForm />,
-    <ObservationsForm />,
+  const formsTitle = [
+    'Cliente',
+    'Status',
+    'Tamanho',
+    'Próxima Ação',
+    'Percepção de valores',
+    'Tomada de decisão',
+    'observações gerais',
   ]
   return (
-    <VStack flex={1}>
-      <ScreenHeader title="registro de visita" />
-      <Box flex={1}>{steps[currentStep]}</Box>
-    </VStack>
+    <Box>
+      <ScreenHeader title="Histórico de Visitas" />
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <VStack p={8} mb={24}>
+          {formsTitle.map((title, index) => (
+            <Form key={index} title={title} index={index} />
+          ))}
+          <Button title="Salvar" />
+        </VStack>
+      </ScrollView>
+    </Box>
   )
 }
