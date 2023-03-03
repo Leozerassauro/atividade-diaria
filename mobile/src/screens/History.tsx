@@ -9,11 +9,10 @@ import { EmptyList } from '@components/EmptyList'
 export function History() {
   const [visits] = useState([
     {
-      title: '22/02/2023',
+      title: '24/02/2023',
       data: [
         {
           id: 1,
-          title: 'Visita 01',
           location: {
             address: 'Rua teste',
             city: 'Cidade teste',
@@ -22,10 +21,76 @@ export function History() {
           clientName: 'Cliente 01',
           status: 'Cliente',
           size: '1000',
-          nextAction: ['Cotar'],
-          values: 'atenção',
-          decision: 'email',
-          observation: 'observações',
+          nextAction: ['Revisitar', 'Enviar Info Com/Tec'],
+          values: {
+            service: 3,
+            price: 2,
+            quality: 4,
+            relationship: 2,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
+        },
+        {
+          id: 2,
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
+          clientName: 'Cliente 02',
+          status: 'Não cliente',
+          size: '550',
+          nextAction: ['Cotar', 'Enviar amostras'],
+          values: {
+            service: 5,
+            price: 4,
+            quality: 4,
+            relationship: 5,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
+        },
+      ],
+    },
+
+    {
+      title: '22/02/2023',
+      data: [
+        {
+          id: 1,
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
+          clientName: 'Cliente 03',
+          status: 'Cliente',
+          size: '1000',
+          nextAction: ['Revisitar', 'Enviar Info Com/Tec'],
+          values: {
+            service: 3,
+            price: 2,
+            quality: 4,
+            relationship: 2,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
         },
       ],
     },

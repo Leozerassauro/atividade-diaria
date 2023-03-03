@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react'
 import {
   Heading,
   HStack,
-  VStack,
   Text,
   Skeleton,
   Icon,
@@ -24,9 +23,19 @@ type Props = {
   status: string
   size: string
   nextAction: string[]
-  values: string
-  decision: string
-  observation: string
+  values: {
+    service: number
+    price: number
+    quality: number
+    relationship: number
+  }
+  decision: {
+    responsible: string
+    jobRole: string
+    phone: string
+    email: string
+  }
+  observation: string[]
 }
 
 export function HistoryCard({
@@ -52,7 +61,7 @@ export function HistoryCard({
     },
     {
       label: 'Tamanho',
-      value: size,
+      value: `${size} L/mês`,
     },
     {
       label: 'Próxima Ação',
@@ -60,15 +69,15 @@ export function HistoryCard({
     },
     {
       label: 'Valores',
-      value: values,
+      value: `Atendimento: ${values.service} | Preço: ${values.price} | Qualidade: ${values.quality} | Relacionamento: ${values.relationship}`,
     },
     {
       label: 'Decisão',
-      value: decision,
+      value: `${decision.responsible} | ${decision.jobRole} | ${decision.email} | ${decision.phone} `,
     },
     {
       label: 'Observações',
-      value: observation,
+      value: `${observation}`,
     },
   ])
 
@@ -102,44 +111,41 @@ export function HistoryCard({
           }}
           onPress={handleToggleCard}
         >
-          <HStack flex={1} alignItems="center" justifyContent="space-between">
-            <HStack flex={1} justifyContent="space-between">
-              <Heading
-                color="gray.200"
-                fontSize="md"
-                textTransform="capitalize"
-              >
-                {clientName}
-              </Heading>
-              <Icon
-                as={Entypo}
-                name={showCard ? 'chevron-up' : 'chevron-down'}
-              />
-            </HStack>
+          <HStack
+            flex={1}
+            justifyContent="space-between"
+            alignItems="center"
+            mb={showCard ? 6 : 0}
+          >
+            <Heading color="gray.200" fontSize="md" textTransform="capitalize">
+              {clientName}
+            </Heading>
+            <Icon as={Entypo} name={showCard ? 'chevron-up' : 'chevron-down'} />
           </HStack>
-          {showCard &&
-            card.map((item, index) => (
-              <Box key={index}>
-                <Text
-                  textTransform="capitalize"
-                  fontFamily="body"
-                  fontWeight="bold"
-                  color="gray.200"
-                >
-                  {item.label}:
-                </Text>
-                <Text
-                  color="gray.300"
-                  fontFamily="body"
-                  fontSize="sm"
-                  numberOfLines={2}
-                  mb={2}
-                  pl={1}
-                >
-                  {item.value.split(',').join(', ')}
-                </Text>
-              </Box>
-            ))}
+          <Box>
+            {showCard &&
+              card.map((item, index) => (
+                <Box key={index}>
+                  <Text
+                    textTransform="capitalize"
+                    fontFamily="body"
+                    fontWeight="bold"
+                    color="gray.200"
+                  >
+                    {item.label}:
+                  </Text>
+                  <Text
+                    color="gray.300"
+                    fontFamily="body"
+                    fontSize="sm"
+                    mb={2}
+                    pl={1}
+                  >
+                    {item.value.split(',').join(', ')}
+                  </Text>
+                </Box>
+              ))}
+          </Box>
         </Pressable>
       )}
     </>
