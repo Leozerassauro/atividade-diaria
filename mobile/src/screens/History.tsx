@@ -9,32 +9,88 @@ import { EmptyList } from '@components/EmptyList'
 export function History() {
   const [visits] = useState([
     {
+      title: '24/02/2023',
+      data: [
+        {
+          id: 1,
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
+          clientName: 'Cliente 01',
+          status: 'Cliente',
+          size: '1000',
+          nextAction: ['Revisitar', 'Enviar Info Com/Tec'],
+          values: {
+            service: 3,
+            price: 2,
+            quality: 4,
+            relationship: 2,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
+        },
+        {
+          id: 2,
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
+          clientName: 'Cliente 02',
+          status: 'Não cliente',
+          size: '550',
+          nextAction: ['Cotar', 'Enviar amostras'],
+          values: {
+            service: 5,
+            price: 4,
+            quality: 4,
+            relationship: 5,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
+        },
+      ],
+    },
+
+    {
       title: '22/02/2023',
       data: [
         {
           id: 1,
-          title: 'Visita 01',
-          clientName: 'Cliente 01',
-        },
-        {
-          id: 2,
-          title: 'Visita 02',
-          clientName: 'Cliente 02',
-        },
-        {
-          id: 3,
-          title: 'Visita 03',
+          location: {
+            address: 'Rua teste',
+            city: 'Cidade teste',
+            state: 'Estado teste',
+          },
           clientName: 'Cliente 03',
-        },
-      ],
-    },
-    {
-      title: '24/02/2023',
-      data: [
-        {
-          id: 4,
-          title: 'Visita 01',
-          clientName: 'Cliente 01',
+          status: 'Cliente',
+          size: '1000',
+          nextAction: ['Revisitar', 'Enviar Info Com/Tec'],
+          values: {
+            service: 3,
+            price: 2,
+            quality: 4,
+            relationship: 2,
+          },
+          decision: {
+            responsible: 'Responsável teste',
+            jobRole: 'Cargo teste',
+            email: 'email teste',
+            phone: '54 99999999',
+          },
+          observation: ['Enviar amostras', 'Frete grátis sempre'],
         },
       ],
     },
@@ -48,7 +104,16 @@ export function History() {
         sections={visits}
         keyExtractor={(item, index) => item.id.toString()}
         renderItem={({ item }) => (
-          <HistoryCard title={item.title} clientName={item.clientName} />
+          <HistoryCard
+            clientName={item.clientName}
+            location={item.location}
+            status={item.status}
+            size={item.size}
+            nextAction={item.nextAction}
+            values={item.values}
+            decision={item.decision}
+            observation={item.observation}
+          />
         )}
         renderSectionHeader={({ section }) => (
           <Heading

@@ -2,7 +2,7 @@
 import { Box, useTheme } from 'native-base'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 // Routes
-import { AuthRoutes } from './auth.routes'
+// import { AuthRoutes } from './auth.routes'
 import { AppRoutes } from './app.routes'
 
 export function Routes() {

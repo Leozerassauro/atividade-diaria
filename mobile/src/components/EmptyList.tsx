@@ -1,6 +1,7 @@
 // Native
 import { Center, Text } from 'native-base'
 
+// Interfaces
 type Props = {
   title: string
 }
