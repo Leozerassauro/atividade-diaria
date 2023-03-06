@@ -10,10 +10,11 @@ export function VisitRegistration() {
   const formsTitle = [
     'Cliente',
     'Status',
+    'Atendido por quem',
+    'Tomada de decisão',
     'Tamanho',
     'Próxima Ação',
     'Percepção de valores',
-    'Tomada de decisão',
     'observações gerais',
   ]
   return (

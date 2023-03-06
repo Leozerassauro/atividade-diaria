@@ -22,7 +22,7 @@ type FormProps = {
   email: string
 }
 
-export function DecisionForm() {
+export function ServicedByForm() {
   const [forms, setForms] = useState<FormProps[]>([
     { responsible: '', jobRole: '', phone: '', email: '' },
   ])
@@ -116,7 +116,7 @@ export function DecisionForm() {
                 onChangeText={(value) =>
                   handleFormChange(index, 'responsible', value)
                 }
-                placeholder="Nome do responsável"
+                placeholder="Nome do atendente"
                 bg="gray.700"
                 mb={4}
                 returnKeyType="next"

@@ -1,15 +1,29 @@
 // Native
 import { useState } from 'react'
 // import { Alert } from 'react-native'
-import { VStack } from 'native-base'
+import { Box, Text, VStack } from 'native-base'
 // Components
 import { Checkbox } from '@components/Checkbox'
 import { Input } from '@components/Input'
+// Assets
+import { Entypo } from '@expo/vector-icons'
 
 export function NextActionForm() {
   const [checked, setChecked] = useState(false)
+  const [selectedOption, setSelectedOption] = useState<string>('')
   const [selectedOptions, setSelectedOptions] = useState<number[]>([])
   const [otherOption, setOtherOption] = useState('')
+
+  const quoteOptions = [
+    { id: 1, name: 'Lúpulo' },
+    { id: 2, name: 'Maltes' },
+    { id: 3, name: 'Levedura' },
+    { id: 4, name: 'Enzima' },
+    { id: 5, name: 'Latas' },
+    { id: 6, name: 'Clarificante' },
+    { id: 7, name: 'Outros' },
+  ]
+
   const multipleOptions = [
     'Cotar',
     'Revisitar',
@@ -25,43 +39,48 @@ export function NextActionForm() {
       )
     } else {
       setSelectedOptions((prevState) => [...prevState, optionIndex])
+      setSelectedOption(multipleOptions[optionIndex])
     }
   }
-
-  // function handleSubmitActions() {
-  //   try {
-  //     if (selectedOptions.length === 0 && otherOption === '') {
-  //       return Alert.alert(
-  //         'Ações não informadas',
-  //         'Informe pelo menos uma ação para continuar.',
-  //       )
-  //     }
-
-  //     const nextActions = checked
-  //       ? [...selectedOptions, otherOption]
-  //       : selectedOptions
-  //     console.log(nextActions)
-  //     setSelectedOptions([])
-  //     setOtherOption('')
-  //   } catch (error) {
-  //     console.log(error)
-  //     Alert.alert('Ops', 'Alguma coisa deu errado o tamanho')
-  //   }
-  // }
 
   console.log(selectedOptions, otherOption)
 
   return (
     <VStack flex={1} p={4} justifyContent="space-between">
       {multipleOptions.map((option, index) => (
-        <Checkbox
-          value=""
-          key={option}
-          title={option}
-          isChecked={selectedOptions.includes(index)}
-          onChange={() => handleToggleOption(index)}
-          mb={4}
-        />
+        <Box key={option}>
+          <Checkbox
+            value=""
+            title={option}
+            isChecked={selectedOptions.includes(index)}
+            onChange={() => handleToggleOption(index)}
+            mb={4}
+          />
+          {selectedOptions.includes(index) && option === 'Cotar' && (
+            <Box>
+              {quoteOptions.map((option, index) => (
+                <>
+                  <Text key={index} color="gray.200">
+                    {option.name}
+                  </Text>
+                  <Input bg="gray.700" />
+                </>
+              ))}
+            </Box>
+          )}
+          {selectedOptions.includes(index) && option === 'Revisitar' && (
+            <Box>
+              {quoteOptions.map((option, index) => (
+                <>
+                  <Text key={index} color="gray.200">
+                    {option.name}
+                  </Text>
+                  <Input bg="gray.700" />
+                </>
+              ))}
+            </Box>
+          )}
+        </Box>
       ))}
       <Checkbox value="7" title="Outro" onChange={() => setChecked(!checked)} />
       {checked && (

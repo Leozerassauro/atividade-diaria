@@ -3,7 +3,9 @@ import { useMemo, useState } from 'react'
 import { Heading, HStack, Skeleton, Icon, Pressable, Box } from 'native-base'
 // Assets
 import { Entypo } from '@expo/vector-icons'
+// Components
 import { ClientForm } from './ClientForm'
+import { ServicedByForm } from './ServicedByForm'
 import { StatusForm } from './StatusForm'
 import { SizeForm } from './SizeForm'
 import { NextActionForm } from './NextActionForm'
@@ -23,11 +25,12 @@ export function Form({ title, index }: Props) {
   const [forms] = useState([
     <ClientForm key={1} />,
     <StatusForm key={2} />,
-    <SizeForm key={3} />,
-    <NextActionForm key={4} />,
-    <ValuesForm key={5} />,
-    <DecisionForm key={6} />,
-    <ObservationsForm key={7} />,
+    <ServicedByForm key={3} />,
+    <DecisionForm key={4} />,
+    <SizeForm key={5} />,
+    <NextActionForm key={6} />,
+    <ValuesForm key={7} />,
+    <ObservationsForm key={8} />,
   ])
 
   const handleToggleCard = (formIndex: number) => {
