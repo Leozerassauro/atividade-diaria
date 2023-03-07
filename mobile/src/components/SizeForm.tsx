@@ -5,11 +5,26 @@ import { Center, Text, VStack } from 'native-base'
 // Components
 import { Input } from '@components/Input'
 import { Checkbox } from '@components/Checkbox'
+import { Rating } from './Rating'
 
 export function SizeForm() {
   const [size, setSize] = useState('')
   const [percentage, setPercentage] = useState('')
   const [checked, setChecked] = useState(false)
+  const options = ['CraftBeer', 'Preço']
+  const [values, setValues] = useState<{ [key: string]: number }>({
+    Atendimento: 0,
+    Preço: 0,
+    Qualidade: 0,
+    Relacionamento: 0,
+  })
+
+  function handleChangeValue(option: string, value: number) {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [option]: value,
+    }))
+  }
 
   // function handleSubmitSize() {
   //   try {
@@ -66,7 +81,15 @@ export function SizeForm() {
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}{' '}
           L/mês
         </Text>
-        <Input
+        {/* {options.map((option) => (
+          <Rating
+            key={option}
+            label={option}
+            value={values[option]}
+            onChange={(value) => handleChangeValue(option, value)}
+          />
+        ))} */}
+        {/* <Input
           bg="gray.700"
           mt={10}
           placeholder="Percentual de cervejas leves"
@@ -83,7 +106,7 @@ export function SizeForm() {
             .toFixed(0)
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}{' '}
           %
-        </Text>
+        </Text> */}
         <Checkbox
           value=""
           mt={12}

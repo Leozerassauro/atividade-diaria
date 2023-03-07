@@ -28,8 +28,8 @@ export function NavButton({ title, ...rest }: Props) {
         color="gray.200"
         textAlign="center"
         textTransform="uppercase"
+        fontFamily="heading"
         fontSize="xs"
-        fontWeight="bold"
       >
         {title}
       </Text>

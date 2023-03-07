@@ -1,10 +1,11 @@
 // Native
 import { useState } from 'react'
 // import { Alert } from 'react-native'
-import { Box, Text, VStack } from 'native-base'
+import { Box, Center, Icon, Text, VStack } from 'native-base'
 // Components
 import { Checkbox } from '@components/Checkbox'
 import { Input } from '@components/Input'
+import { Select } from '@components/Select'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
@@ -56,18 +57,7 @@ export function NextActionForm() {
             onChange={() => handleToggleOption(index)}
             mb={4}
           />
-          {selectedOptions.includes(index) && option === 'Cotar' && (
-            <Box>
-              {quoteOptions.map((option, index) => (
-                <>
-                  <Text key={index} color="gray.200">
-                    {option.name}
-                  </Text>
-                  <Input bg="gray.700" />
-                </>
-              ))}
-            </Box>
-          )}
+          {selectedOptions.includes(index) && option === 'Cotar' && <Select />}
           {selectedOptions.includes(index) && option === 'Revisitar' && (
             <Box>
               {quoteOptions.map((option, index) => (

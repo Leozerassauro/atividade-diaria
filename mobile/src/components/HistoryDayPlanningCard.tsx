@@ -121,8 +121,7 @@ export function HistoryDayPlanningCard({
               <Box key={index}>
                 <Text
                   textTransform="capitalize"
-                  fontFamily="body"
-                  fontWeight="bold"
+                  fontFamily="heading"
                   color="gray.200"
                 >
                   {item.label}:
