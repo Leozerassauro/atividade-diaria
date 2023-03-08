@@ -1,20 +1,50 @@
 // Native
-import { VStack, Image, Center, ScrollView } from 'native-base'
-import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+import { VStack, Image, Center, ScrollView, Icon, Pressable } from 'native-base'
+// import { useNavigation } from '@react-navigation/native'
+// Form Validations
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 // Components
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 // Routes
-import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
+// import { AuthNavigatorRoutesProps } from '@routes/auth.routes'
 // Assets
+import { Entypo } from '@expo/vector-icons'
 import Logo from '@assets/logo.png'
-import BackgroundImg from '@assets/background.png'
+import BackgroundImg from '@assets/background2.png'
+
+type FormDataProps = {
+  user: string
+  password: string
+}
+
+const signInSchema = yup.object({
+  user: yup.string().required('Informe o usuário'),
+  password: yup.string().required('Informe a senha'),
+})
 
 export function SignIn() {
-  const navigation = useNavigation<AuthNavigatorRoutesProps>()
+  const [showPassword, setShowPassword] = useState(false)
+  // const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
-  function handleSignIn() {
-    navigation.navigate('signIn')
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(signInSchema),
+  })
+
+  function handleSignIn({ user, password }: FormDataProps) {
+    // navigation.navigate('signIn')
+    console.log(user, password)
+  }
+
+  function handleShowPassword() {
+    setShowPassword(!showPassword)
   }
 
   return (
@@ -34,20 +64,53 @@ export function SignIn() {
           <Center>
             <Image source={Logo} alt="Imagem do logo da empresa LNF" mb={10} />
           </Center>
-          <Input
-            bg="gray.700"
-            placeholder="Digite o usuário"
-            mb={8}
-            autoCapitalize="none"
+
+          <Controller
+            control={control}
+            name="user"
+            render={({ field: { onChange } }) => (
+              <Input
+                bg="gray.700"
+                placeholder="Usuário"
+                autoCapitalize="none"
+                InputLeftElement={
+                  <Icon as={Entypo} name="user" size={4} ml={4} />
+                }
+                onChangeText={onChange}
+                errorMessage={errors.user?.message}
+              />
+            )}
           />
-          <Input
-            bg="gray.700"
-            placeholder="Digite a senha"
-            mb={16}
-            secureTextEntry
-            returnKeyType="send"
+
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange } }) => (
+              <Input
+                bg="gray.700"
+                placeholder="Senha"
+                InputLeftElement={
+                  <Icon as={Entypo} name="lock" size={4} ml={4} />
+                }
+                InputRightElement={
+                  <Pressable onPress={handleShowPassword}>
+                    {!showPassword ? (
+                      <Icon as={Entypo} name="eye" size={4} mr={4} />
+                    ) : (
+                      <Icon as={Entypo} name="eye-with-line" size={4} mr={4} />
+                    )}
+                  </Pressable>
+                }
+                secureTextEntry={!showPassword}
+                returnKeyType="send"
+                onSubmitEditing={handleSubmit(handleSignIn)}
+                onChangeText={onChange}
+                errorMessage={errors.password?.message}
+              />
+            )}
           />
-          <Button title="Entrar" onPress={handleSignIn} />
+
+          <Button title="Entrar" mt={8} onPress={handleSubmit(handleSignIn)} />
         </VStack>
       </VStack>
     </ScrollView>
