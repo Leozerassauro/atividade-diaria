@@ -1,5 +1,6 @@
 // Native
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 // import { Alert } from 'react-native'
 import { Box, Center, Icon, Text, VStack } from 'native-base'
 // Components
@@ -10,78 +11,115 @@ import { Select } from '@components/Select'
 import { Entypo } from '@expo/vector-icons'
 
 export function NextActionForm() {
-  const [checked, setChecked] = useState(false)
-  const [selectedOption, setSelectedOption] = useState<string>('')
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([])
-  const [otherOption, setOtherOption] = useState('')
-
-  const quoteOptions = [
-    { id: 1, name: 'Lúpulo' },
-    { id: 2, name: 'Maltes' },
-    { id: 3, name: 'Levedura' },
-    { id: 4, name: 'Enzima' },
-    { id: 5, name: 'Latas' },
-    { id: 6, name: 'Clarificante' },
-    { id: 7, name: 'Outros' },
-  ]
-
-  const multipleOptions = [
-    'Cotar',
-    'Revisitar',
-    'Fazer Proposta',
-    'Enviar Info Com/Tec',
-    'Enviar Amostra',
-  ]
-
-  function handleToggleOption(optionIndex: number) {
-    if (selectedOptions.includes(optionIndex)) {
-      setSelectedOptions((prevState) =>
-        prevState.filter((option) => option !== optionIndex),
-      )
-    } else {
-      setSelectedOptions((prevState) => [...prevState, optionIndex])
-      setSelectedOption(multipleOptions[optionIndex])
-    }
-  }
-
-  console.log(selectedOptions, otherOption)
+  const { control } = useForm()
 
   return (
-    <VStack flex={1} p={4} justifyContent="space-between">
-      {multipleOptions.map((option, index) => (
-        <Box key={option}>
-          <Checkbox
-            value=""
-            title={option}
-            isChecked={selectedOptions.includes(index)}
-            onChange={() => handleToggleOption(index)}
-            mb={4}
-          />
-          {selectedOptions.includes(index) && option === 'Cotar' && <Select />}
-          {selectedOptions.includes(index) && option === 'Revisitar' && (
-            <Box>
-              {quoteOptions.map((option, index) => (
-                <>
-                  <Text key={index} color="gray.200">
-                    {option.name}
-                  </Text>
-                  <Input bg="gray.700" />
-                </>
-              ))}
-            </Box>
-          )}
-        </Box>
-      ))}
-      <Checkbox value="7" title="Outro" onChange={() => setChecked(!checked)} />
-      {checked && (
-        <Input
-          bg="gray.700"
-          placeholder="Próxima ação"
-          mt={8}
-          value={otherOption}
-          onChangeText={setOtherOption}
-        />
-      )}
+    <VStack flex={1} p={4}>
+      <Controller
+        control={control}
+        name="quote"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Cotar"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => {
+                console.log(nextValue)
+                onChange(nextValue)
+              }}
+            />
+            {value && <Select setItOpen={true} />}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="revisit"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Revisitar"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue)}
+            />
+            {value && <Input bg="gray.700" mb={4} placeholder="Data" />}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="proposal"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Fazer Proposta"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue)}
+            />
+            {value && <Input bg="gray.700" mb={4} placeholder="Proposta" />}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="sendInfo"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Enviar Info Com/Téc"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue)}
+            />
+            {value && (
+              <Input
+                bg="gray.700"
+                mb={4}
+                placeholder="Info Comercial / Técnica"
+              />
+            )}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="sendSample"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Enviar Amostra"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue)}
+            />
+            {value && <Input bg="gray.700" mb={4} placeholder="Amostra" />}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="other"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Outro"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue)}
+            />
+            {value && <Input bg="gray.700" mb={4} placeholder="Outro" />}
+          </>
+        )}
+      />
     </VStack>
   )
 }

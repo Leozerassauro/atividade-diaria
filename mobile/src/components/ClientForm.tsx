@@ -52,6 +52,8 @@ export function ClientForm() {
     setShowResults(true)
   }
 
+  console.log(searchClient.length)
+
   function renderResults() {
     return results.map((item) => (
       <Pressable
@@ -74,9 +76,6 @@ export function ClientForm() {
       </Pressable>
     ))
   }
-
-  console.log(searchClient)
-  console.log(client)
 
   return (
     <VStack flex={1} p={2} bg="gray.600" rounded="md">
