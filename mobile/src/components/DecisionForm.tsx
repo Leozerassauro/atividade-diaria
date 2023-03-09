@@ -1,5 +1,4 @@
 // Native
-import { useState } from 'react'
 import {
   VStack,
   Button as AddButton,
@@ -10,36 +9,64 @@ import {
   Box,
 } from 'native-base'
 import { Alert } from 'react-native'
+// Form Validations
+import { useForm, Controller, useFieldArray } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 // Components
 import { Input } from '@components/Input'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
-type FormProps = {
-  responsible: string
-  jobRole: string
-  phone: string
-  email: string
+type FormDataProps = {
+  decisionMaker: {
+    name: string
+    jobRole: string
+    phone: string
+    email: string
+  }[]
 }
 
+const decisionMaker = yup.object().shape({
+  decisionMaker: yup.array().of(
+    yup.object().shape({
+      name: yup.string(),
+      jobRole: yup.string(),
+      phone: yup.string(),
+      // .matches(
+      //   /^[1-9]{2}9?[6-9][0-9]{3}[0-9]{4}$/,
+      //   'Digite um número válido',
+      // ),
+      email: yup.string().email('Digite um email válido'),
+    }),
+  ),
+})
+
 export function DecisionForm() {
-  const [forms, setForms] = useState<FormProps[]>([
-    { responsible: '', jobRole: '', phone: '', email: '' },
-  ])
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(decisionMaker),
+    defaultValues: {
+      decisionMaker: [{ name: '', jobRole: '', phone: '', email: '' }],
+    },
+  })
 
-  const handleAddForm = () => {
-    setForms([...forms, { responsible: '', jobRole: '', phone: '', email: '' }])
-  }
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'decisionMaker',
+  })
 
-  function handleDeleteForm(index: number) {
+  function handleRemoveForm(index: number) {
     return Alert.alert(
       'Deletar Formulário',
-      'Tem certeza que deseja deletar esse formulário?',
+      `Tem certeza que deseja deletar esse formulário?`,
       [
         {
           text: 'Sim',
-          onPress: () =>
-            setForms((prevState) => prevState.filter((_, i) => i !== index)),
+          onPress: () => remove(index),
         },
         {
           text: 'Não',
@@ -49,113 +76,102 @@ export function DecisionForm() {
     )
   }
 
-  const handleFormChange = (
-    index: number,
-    field: keyof FormProps,
-    value: string,
-  ) => {
-    const newForms = [...forms]
-    newForms[index][field] = value
-    setForms(newForms)
+  function handleFormSubmit({ decisionMaker }: FormDataProps) {
+    decisionMaker.forEach((item, index) => {
+      console.log(`Índice ${index}:`, item)
+    })
   }
-
-  // function handleSubmitDecisions() {
-  //   try {
-  //     forms.forEach((form) => {
-  //       if (!form.responsible || !form.jobRole || !form.phone || !form.email) {
-  //         return Alert.alert(
-  //           'Campos não preenchidos',
-  //           'Preencha todos os campos para continuar',
-  //         )
-  //       } else {
-  //         return (
-  //           Alert.alert(
-  //             'Cadastro adicionado com sucesso!',
-  //             'Você registrou a visita com sucesso',
-  //           ),
-  //           navigation.navigate('home'),
-  //           setForms([{ responsible: '', jobRole: '', phone: '', email: '' }])
-  //         )
-  //       }
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     Alert.alert('Ops', 'Alguma coisa deu errado com a busca de clientes')
-  //   }
-  // }
-
-  console.log(forms)
 
   return (
     <>
-      {forms.map((form, index) => (
+      {fields.map((field, index) => (
         <Box key={index}>
-          <VStack
-            key={index}
-            flex={1}
-            bg="gray.600"
-            px={4}
-            rounded="md"
-            mt={index > 0 ? 4 : 0}
-          >
-            <Box alignItems="flex-end">
-              <Pressable mb={4} onPress={() => handleDeleteForm(index)}>
-                <Icon
-                  as={Entypo}
-                  name="circle-with-cross"
-                  color="gray.200"
-                  position="relative"
-                  top={2}
-                  left={4}
+          <Box alignItems="flex-end">
+            <Pressable
+              mb={4}
+              key={`remove-${index}`}
+              onPress={() => handleRemoveForm(index)}
+            >
+              <Icon
+                as={Entypo}
+                name="circle-with-cross"
+                color="gray.200"
+                position="relative"
+                top={2}
+                left={4}
+              />
+            </Pressable>
+          </Box>
+          <VStack>
+            <Controller
+              key={`name-${index}`}
+              control={control}
+              name={`decisionMaker.${index}.name`}
+              render={({ field: { onChange } }) => (
+                <Input
+                  defaultValue={field.name}
+                  onChangeText={onChange}
+                  errorMessage={errors.decisionMaker?.[index]?.name?.message}
+                  placeholder="Nome do responsável"
+                  bg="gray.700"
+                  mb={4}
+                  returnKeyType="next"
                 />
-              </Pressable>
-            </Box>
-            <VStack>
-              <Input
-                value={form.responsible}
-                onChangeText={(value) =>
-                  handleFormChange(index, 'responsible', value)
-                }
-                placeholder="Nome do responsável"
-                bg="gray.700"
-                mb={4}
-                returnKeyType="next"
-              />
+              )}
+            />
 
-              <Input
-                value={form.jobRole}
-                onChangeText={(value) =>
-                  handleFormChange(index, 'jobRole', value)
-                }
-                placeholder="Cargo"
-                bg="gray.700"
-                mb={4}
-                returnKeyType="next"
-              />
+            <Controller
+              key={`jobRole-${index}`}
+              control={control}
+              name={`decisionMaker.${index}.jobRole`}
+              render={({ field: { onChange } }) => (
+                <Input
+                  defaultValue={field.jobRole}
+                  onChangeText={onChange}
+                  errorMessage={errors.decisionMaker?.[index]?.jobRole?.message}
+                  placeholder="Cargo"
+                  bg="gray.700"
+                  mb={4}
+                  returnKeyType="next"
+                />
+              )}
+            />
 
-              <Input
-                value={form.phone}
-                onChangeText={(value) =>
-                  handleFormChange(index, 'phone', value)
-                }
-                keyboardType="numeric"
-                placeholder="Celular"
-                bg="gray.700"
-                mb={4}
-                returnKeyType="next"
-              />
-
-              <Input
-                value={form.email}
-                onChangeText={(value) =>
-                  handleFormChange(index, 'email', value)
-                }
-                placeholder="Email"
-                bg="gray.700"
-                mb={8}
-                returnKeyType="done"
-              />
-            </VStack>
+            <Controller
+              key={`phone-${index}`}
+              control={control}
+              name={`decisionMaker.${index}.phone`}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  defaultValue={field.phone}
+                  onChangeText={onChange}
+                  errorMessage={errors.decisionMaker?.[index]?.phone?.message}
+                  placeholder="Celular"
+                  keyboardType="numeric"
+                  bg="gray.700"
+                  mb={4}
+                  returnKeyType="next"
+                />
+              )}
+            />
+            <Controller
+              key={`email-${index}`}
+              control={control}
+              name={`decisionMaker.${index}.email`}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  defaultValue={field.email}
+                  onChangeText={onChange}
+                  errorMessage={errors.decisionMaker?.[index]?.email?.message}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  bg="gray.700"
+                  mb={8}
+                  returnKeyType="send"
+                  onSubmitEditing={handleSubmit(handleFormSubmit)}
+                />
+              )}
+            />
           </VStack>
         </Box>
       ))}
@@ -168,7 +184,9 @@ export function DecisionForm() {
           _pressed={{
             bg: 'green.500',
           }}
-          onPress={handleAddForm}
+          onPress={() =>
+            append({ name: '', jobRole: '', phone: '', email: '' })
+          }
         >
           <Text color="gray.200">+</Text>
         </AddButton>

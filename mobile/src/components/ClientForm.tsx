@@ -1,6 +1,5 @@
 // Native
-import { useState } from 'react'
-import { Alert } from 'react-native'
+import { useEffect, useState } from 'react'
 import { Icon, Pressable, Text, VStack } from 'native-base'
 // Components
 import { Input } from '@components/Input'
@@ -8,12 +7,17 @@ import { Checkbox } from '@components/Checkbox'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
-export function ClientForm() {
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
+export function ClientForm({ onIsCompletelyFilled }: Props) {
   const [checked, setChecked] = useState(false)
   const [client, setClient] = useState('')
   const [searchClient, setSearchClient] = useState('')
   const [results, setResults] = useState<{ id: number; name: string }[]>([])
   const [showResults, setShowResults] = useState(false)
+  const [isFilled, setIsFilled] = useState(false)
 
   function search(query: string) {
     const clients = [
@@ -32,27 +36,40 @@ export function ClientForm() {
         client.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
         client.id.toString().includes(query),
     )
-
     return clients
   }
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
 
   function handleSearchClient(query: string) {
     setSearchClient(query)
     setShowResults(false)
   }
 
+  function handleAddNewClient() {
+    setClient(client)
+    setIsFilled(true)
+  }
+
   function handleClientSelect(item: any) {
     setSearchClient(item.name)
+    setIsFilled(true)
     setResults([])
     setShowResults(false)
   }
 
   function handleSearchButtonPress() {
-    setResults(search(searchClient))
-    setShowResults(true)
+    if (searchClient.length === 0) {
+      setShowResults(false)
+    } else {
+      setResults(search(searchClient))
+      setShowResults(true)
+    }
   }
 
-  console.log(searchClient.length)
+  console.log('isFilled - ' + isFilled)
 
   function renderResults() {
     return results.map((item) => (
@@ -78,9 +95,8 @@ export function ClientForm() {
   }
 
   return (
-    <VStack flex={1} p={2} bg="gray.600" rounded="md">
+    <VStack>
       <Input
-        textAlignVertical="center"
         mt={6}
         mb={2}
         bg="gray.700"
@@ -111,7 +127,6 @@ export function ClientForm() {
         }
       />
       {results.length > 0 && renderResults()}
-
       <Checkbox
         value=""
         mt={12}
@@ -125,6 +140,8 @@ export function ClientForm() {
           mt={8}
           onChangeText={setClient}
           value={client}
+          returnKeyType="send"
+          onSubmitEditing={handleAddNewClient}
         />
       )}
     </VStack>

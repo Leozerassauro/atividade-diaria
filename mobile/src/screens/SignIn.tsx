@@ -71,6 +71,7 @@ export function SignIn() {
             render={({ field: { onChange } }) => (
               <Input
                 bg="gray.700"
+                mb={8}
                 placeholder="Usuário"
                 autoCapitalize="none"
                 InputLeftElement={
@@ -88,6 +89,7 @@ export function SignIn() {
             render={({ field: { onChange } }) => (
               <Input
                 bg="gray.700"
+                mb={8}
                 placeholder="Senha"
                 InputLeftElement={
                   <Icon as={Entypo} name="lock" size={4} ml={4} />
