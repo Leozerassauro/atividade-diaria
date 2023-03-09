@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react'
 import { Heading, HStack, Skeleton, Icon, Pressable, Box } from 'native-base'
 // Assets
-import { Entypo, Ionicons } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 // Components
 import { ClientForm } from './ClientForm'
 import { ServicedByForm } from './ServicedByForm'
@@ -82,12 +82,7 @@ export function Form({ title, index }: Props) {
               {title}
             </Heading>
             {isFilled ? (
-              <Icon
-                as={Ionicons}
-                name="checkmark-circle-sharp"
-                color="green.700"
-                size={5}
-              />
+              <Icon as={Entypo} name="check" color="green.700" />
             ) : (
               <Icon
                 as={Entypo}
