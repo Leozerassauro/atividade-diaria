@@ -1,4 +1,5 @@
 // Native
+import { useEffect, useState } from 'react'
 import {
   VStack,
   Button as AddButton,
@@ -27,6 +28,10 @@ type FormDataProps = {
   }[]
 }
 
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
 const servicedBy = yup.object().shape({
   servicedBy: yup.array().of(
     yup.object().shape({
@@ -42,7 +47,7 @@ const servicedBy = yup.object().shape({
   ),
 })
 
-export function ServicedByForm() {
+export function ServicedByForm({ onIsCompletelyFilled }: Props) {
   const {
     control,
     handleSubmit,
@@ -53,11 +58,15 @@ export function ServicedByForm() {
       servicedBy: [{ name: '', jobRole: '', phone: '', email: '' }],
     },
   })
-
+  const [isFilled, setIsFilled] = useState(false)
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'servicedBy',
   })
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
 
   function handleRemoveForm(index: number) {
     return Alert.alert(
@@ -77,6 +86,7 @@ export function ServicedByForm() {
   }
 
   function handleFormSubmit({ servicedBy }: FormDataProps) {
+    setIsFilled(true)
     servicedBy.forEach((item, index) => {
       console.log(`Índice ${index}:`, item)
     })

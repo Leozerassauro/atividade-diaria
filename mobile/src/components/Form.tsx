@@ -25,9 +25,9 @@ export function Form({ title, index }: Props) {
   const [forms] = useState([
     <ClientForm onIsCompletelyFilled={handleIsFilledChange} key={1} />,
     <StatusForm key={2} />,
-    <ServicedByForm key={3} />,
-    <DecisionForm key={4} />,
-    <SizeForm key={5} />,
+    <ServicedByForm onIsCompletelyFilled={handleIsFilledChange} key={3} />,
+    <DecisionForm onIsCompletelyFilled={handleIsFilledChange} key={4} />,
+    <SizeForm onIsCompletelyFilled={handleIsFilledChange} key={5} />,
     <NextActionForm key={6} />,
     <ValuesForm key={7} />,
     <ObservationsForm key={8} />,

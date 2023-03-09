@@ -17,6 +17,7 @@ import * as yup from 'yup'
 import { Input } from '@components/Input'
 // Assets
 import { Entypo } from '@expo/vector-icons'
+import { useEffect, useState } from 'react'
 
 type FormDataProps = {
   decisionMaker: {
@@ -25,6 +26,10 @@ type FormDataProps = {
     phone: string
     email: string
   }[]
+}
+
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
 }
 
 const decisionMaker = yup.object().shape({
@@ -42,7 +47,7 @@ const decisionMaker = yup.object().shape({
   ),
 })
 
-export function DecisionForm() {
+export function DecisionForm({ onIsCompletelyFilled }: Props) {
   const {
     control,
     handleSubmit,
@@ -53,11 +58,15 @@ export function DecisionForm() {
       decisionMaker: [{ name: '', jobRole: '', phone: '', email: '' }],
     },
   })
-
+  const [isFilled, setIsFilled] = useState(false)
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'decisionMaker',
   })
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
 
   function handleRemoveForm(index: number) {
     return Alert.alert(
@@ -77,6 +86,7 @@ export function DecisionForm() {
   }
 
   function handleFormSubmit({ decisionMaker }: FormDataProps) {
+    setIsFilled(true)
     decisionMaker.forEach((item, index) => {
       console.log(`Índice ${index}:`, item)
     })

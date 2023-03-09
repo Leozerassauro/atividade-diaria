@@ -1,68 +1,33 @@
 // Native
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import { Alert } from 'react-native'
 import { Center, Text, VStack } from 'native-base'
 // Components
 import { Input } from '@components/Input'
 import { Checkbox } from '@components/Checkbox'
-import { Rating } from './Rating'
+import { Rating } from '@components/Rating'
 
-export function SizeForm() {
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
+export function SizeForm({ onIsCompletelyFilled }: Props) {
   const [size, setSize] = useState('')
-  const [percentage, setPercentage] = useState('')
+  const [percentage, setPercentage] = useState(0)
   const [checked, setChecked] = useState(false)
-  const options = ['CraftBeer', 'Preço']
-  const [values, setValues] = useState<{ [key: string]: number }>({
-    Atendimento: 0,
-    Preço: 0,
-    Qualidade: 0,
-    Relacionamento: 0,
-  })
+  const [isFilled, setIsFilled] = useState(false)
 
-  function handleChangeValue(option: string, value: number) {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [option]: value,
-    }))
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
+
+  function handleChangePercentage(percentage: number) {
+    setIsFilled(true)
+    setPercentage(percentage)
   }
 
-  // function handleSubmitSize() {
-  //   try {
-  //     const newSize = checked ? 0 : size
-  //     const newPercentage = checked ? 0 : percentage
-
-  //     if (
-  //       (isNaN(Number(size)) && !checked) ||
-  //       (Number(size) <= 0 && !checked)
-  //     ) {
-  //       return Alert.alert(
-  //         'Tamanho inválido',
-  //         'Informe um número válido para o tamanho da cervejaria.',
-  //       )
-  //     }
-  //     if (
-  //       (isNaN(Number(percentage)) && !checked) ||
-  //       (Number(percentage) <= 0 && !checked)
-  //     ) {
-  //       return Alert.alert(
-  //         'Porcentagem inválida',
-  //         'Informe um número válido para porcentagem de cervejas leves.',
-  //       )
-  //     }
-  //     setSize(String(newSize))
-  //     setSize('')
-  //     setPercentage(String(newPercentage))
-  //     setPercentage('')
-  //     console.log(newSize)
-  //     console.log(newPercentage)
-  //   } catch (error) {
-  //     console.log(error)
-  //     Alert.alert('Ops', 'Alguma coisa deu errado o tamanho')
-  //   }
-  // }
-
   return (
-    <VStack flex={1} bg="gray.600" p={2} rounded="md">
+    <VStack>
       <Center flex={1} justifyContent="space-evenly">
         <Input
           bg="gray.700"
@@ -81,32 +46,20 @@ export function SizeForm() {
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}{' '}
           L/mês
         </Text>
-        {/* {options.map((option) => (
+        <Center mt={12}>
+          <Text color="gray.200" fontSize="md" mb={6}>
+            Percentagem de cervejas leves
+          </Text>
           <Rating
-            key={option}
-            label={option}
-            value={values[option]}
-            onChange={(value) => handleChangeValue(option, value)}
+            value={percentage}
+            onChange={handleChangePercentage}
+            minValue={0}
+            maxValue={100}
+            step={5}
+            isPercentage
+            isDisabled={checked}
           />
-        ))} */}
-        {/* <Input
-          bg="gray.700"
-          mt={10}
-          placeholder="Percentual de cervejas leves"
-          keyboardType="numeric"
-          isDisabled={checked}
-          _disabled={{
-            value: '',
-          }}
-          value={percentage.toString()}
-          onChangeText={setPercentage}
-        />
-        <Text color="gray.200" fontSize="lg" mt={4}>
-          {Number(percentage)
-            .toFixed(0)
-            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}{' '}
-          %
-        </Text> */}
+        </Center>
         <Checkbox
           value=""
           mt={12}

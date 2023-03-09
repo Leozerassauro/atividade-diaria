@@ -2,12 +2,18 @@ import { useState } from 'react'
 import { Text, HStack, Slider, ISliderProps } from 'native-base'
 
 type Props = ISliderProps & {
-  label: string
+  label?: string
   value: number
+  isPercentage?: boolean
   onChange: (value: number) => void
 }
 
-export function Rating({ label, onChange, ...rest }: Props) {
+export function Rating({
+  label,
+  onChange,
+  isPercentage = false,
+  ...rest
+}: Props) {
   const [onChangeValue, setOnChangeValue] = useState(0)
 
   function handleValueChange(newValue: number) {
@@ -36,7 +42,7 @@ export function Rating({ label, onChange, ...rest }: Props) {
           <Slider.Thumb />
         </Slider>
         <Text textAlign="center" color="gray.200" fontSize="md" ml={4}>
-          {onChangeValue}
+          {isPercentage ? `${onChangeValue}%` : onChangeValue}
         </Text>
       </HStack>
     </HStack>

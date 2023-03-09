@@ -69,8 +69,6 @@ export function ClientForm({ onIsCompletelyFilled }: Props) {
     }
   }
 
-  console.log('isFilled - ' + isFilled)
-
   function renderResults() {
     return results.map((item) => (
       <Pressable
