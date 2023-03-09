@@ -53,47 +53,60 @@ export function Form({ title, index }: Props) {
           mb={3}
         />
       ) : (
-        <Pressable
-          px={6}
-          py={4}
-          mb={4}
-          bg="gray.600"
-          rounded="md"
-          overflow="hidden"
-          borderColor={isFilled ? 'green.700' : 'gray.400'}
-          borderWidth={1}
-          _pressed={{
-            borderColor: 'green.500',
-            borderWidth: 1,
-          }}
-          onPress={() => handleToggleCard(index)}
-        >
-          <HStack
-            flex={1}
-            justifyContent="space-between"
-            alignItems="center"
-            mb={showForm ? 6 : 0}
+        <>
+          <Pressable
+            px={6}
+            py={4}
+            mb={showForm ? 0 : 4}
+            bg="gray.600"
+            borderWidth={1}
+            borderColor={isFilled ? 'green.700' : 'gray.400'}
+            borderBottomWidth={showForm ? 0 : 1}
+            rounded="md"
+            borderBottomLeftRadius={showForm ? 0 : 'md'}
+            borderBottomRightRadius={showForm ? 0 : 'md'}
+            overflow="hidden"
+            _pressed={{
+              borderColor: 'green.500',
+              borderWidth: 1,
+            }}
+            onPress={() => handleToggleCard(index)}
           >
-            <Heading
-              color={isFilled ? 'gray.300' : 'gray.200'}
-              fontSize="md"
-              textTransform="capitalize"
-            >
-              {title}
-            </Heading>
-            {isFilled ? (
-              <Icon as={Entypo} name="check" color="green.700" />
-            ) : (
-              <Icon
-                as={Entypo}
-                name={showForm ? 'chevron-up' : 'chevron-down'}
-              />
-            )}
-          </HStack>
-          <Box style={{ display: showForm ? 'flex' : 'none' }}>
+            <HStack flex={1} justifyContent="space-between" alignItems="center">
+              <Heading
+                color={isFilled ? 'gray.300' : 'gray.200'}
+                fontSize="md"
+                textTransform="capitalize"
+              >
+                {title}
+              </Heading>
+              {isFilled ? (
+                <Icon as={Entypo} name="check" color="green.700" />
+              ) : (
+                <Icon
+                  as={Entypo}
+                  name={showForm ? 'chevron-up' : 'chevron-down'}
+                />
+              )}
+            </HStack>
+          </Pressable>
+          <Box
+            style={{
+              display: showForm ? 'flex' : 'none',
+            }}
+            rounded="md"
+            borderWidth={1}
+            borderTopLeftRadius={showForm ? 0 : 'md'}
+            borderTopRightRadius={showForm ? 0 : 'md'}
+            borderColor={isFilled ? 'green.700' : 'gray.400'}
+            borderTopWidth={showForm ? 0 : 1}
+            bg="gray.600"
+            p={6}
+            mb={4}
+          >
             {forms[index]}
           </Box>
-        </Pressable>
+        </>
       )}
     </>
   )
