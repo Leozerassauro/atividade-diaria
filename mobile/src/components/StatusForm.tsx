@@ -1,52 +1,60 @@
 // Native
-import { useState } from 'react'
-// import { Alert } from 'react-native'
-import { Box, Center, Radio, Text, VStack } from 'native-base'
+import { useEffect, useState } from 'react'
+import { VStack } from 'native-base'
+// Components
+import { Rating } from '@components/Rating'
 
-export function StatusForm() {
-  const [status, setStatus] = useState('')
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
 
-  // async function handleSubmitStatus() {
-  //   try {
-  //     if (!status) {
-  //       return Alert.alert(
-  //         'Status não informado',
-  //         'Informe o status do cliente',
-  //       )
-  //     }
-  //     console.log(status)
-  //     setStatus(status)
-  //     setStatus('')
-  //   } catch (error) {
-  //     console.log(error)
-  //     Alert.alert('Ops', 'Alguma coisa deu errado com a seleção de status')
-  //   }
-  // }
+export function StatusForm({ onIsCompletelyFilled }: Props) {
+  const [isFilled, setIsFilled] = useState(false)
+  const options = [
+    'Lúpulo',
+    'Maltes',
+    'Levedura',
+    'Enzima',
+    'Latas',
+    'Clarificante',
+    'Outros',
+  ]
+  const [values, setValues] = useState<{ [key: string]: number }>({
+    Lúpulo: 0,
+    Maltes: 0,
+    Levedura: 0,
+    Enzima: 0,
+    Latas: 0,
+    Clarificante: 0,
+    Outros: 0,
+  })
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
+
+  function handleChangeValue(option: string, value: number) {
+    setIsFilled(true)
+    setValues((prevValues) => ({
+      ...prevValues,
+      [option]: value,
+    }))
+  }
 
   return (
-    <VStack flex={1} bg="gray.600" p={8} rounded="md">
-      <Center flex={1} justifyContent="space-evenly">
-        <Radio.Group
-          name="myRadioGroup"
-          value={status}
-          onChange={(nextValue) => {
-            setStatus(nextValue)
-          }}
-        >
-          <Box mb={12}>
-            <Radio value="cliente" my={1} colorScheme="green" bg="gray.700">
-              <Text color="gray.200" fontSize="md">
-                Cliente
-              </Text>
-            </Radio>
-          </Box>
-          <Radio value="Não cliente" my={1} colorScheme="green" bg="gray.700">
-            <Text color="gray.200" fontSize="md">
-              Não cliente
-            </Text>
-          </Radio>
-        </Radio.Group>
-      </Center>
+    <VStack>
+      {options.map((option) => (
+        <Rating
+          key={option}
+          label={option}
+          value={values[option]}
+          minValue={0}
+          maxValue={100}
+          step={5}
+          isPercentage
+          onChange={(value) => handleChangeValue(option, value)}
+        />
+      ))}
     </VStack>
   )
 }

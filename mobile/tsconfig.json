@@ -32,7 +32,7 @@
         "./src/contexts/*"
       ],
       "@routes/*": [
-        "./src/routes/*"
+        "src/screens/routes/*"
       ]
     }
   }

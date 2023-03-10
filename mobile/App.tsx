@@ -13,7 +13,7 @@ import { THEME } from './src/theme'
 // Components
 import { Loading } from '@components/Loading'
 // Routes
-import { Routes } from '@routes/index'
+import { Routes } from '@screens/routes/index'
 
 export default function App() {
   const fontLoaded = useFonts({

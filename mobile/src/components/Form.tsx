@@ -1,12 +1,13 @@
 // Native
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Heading, HStack, Skeleton, Icon, Pressable, Box } from 'native-base'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 // Components
 import { ClientForm } from './ClientForm'
-import { ServicedByForm } from './ServicedByForm'
+import { ClientSegmentForm } from './ClientSegmentForm'
 import { StatusForm } from './StatusForm'
+import { ServicedByForm } from './ServicedByForm'
 import { SizeForm } from './SizeForm'
 import { NextActionForm } from './NextActionForm'
 import { ValuesForm } from './ValuesForm'
@@ -25,15 +26,19 @@ export function Form({ title, index, onFormComplete }: Props) {
   const [showForm, setShowForm] = useState(false)
   const [forms] = useState([
     <ClientForm onIsCompletelyFilled={handleIsCompletelyFilled} key={1} />,
-    <StatusForm key={2} />,
-    <ServicedByForm onIsCompletelyFilled={handleIsCompletelyFilled} key={3} />,
-    <DecisionForm onIsCompletelyFilled={handleIsCompletelyFilled} key={4} />,
-    <SizeForm onIsCompletelyFilled={handleIsCompletelyFilled} key={5} />,
-    <NextActionForm key={6} />,
-    <ValuesForm onIsCompletelyFilled={handleIsCompletelyFilled} key={7} />,
+    <ClientSegmentForm
+      onIsCompletelyFilled={handleIsCompletelyFilled}
+      key={2}
+    />,
+    <StatusForm onIsCompletelyFilled={handleIsCompletelyFilled} key={3} />,
+    <ServicedByForm onIsCompletelyFilled={handleIsCompletelyFilled} key={4} />,
+    <DecisionForm onIsCompletelyFilled={handleIsCompletelyFilled} key={5} />,
+    <SizeForm onIsCompletelyFilled={handleIsCompletelyFilled} key={6} />,
+    <NextActionForm onIsCompletelyFilled={handleIsCompletelyFilled} key={7} />,
+    <ValuesForm onIsCompletelyFilled={handleIsCompletelyFilled} key={8} />,
     <ObservationsForm
       onIsCompletelyFilled={handleIsCompletelyFilled}
-      key={8}
+      key={9}
     />,
   ])
   const [isFilled, setIsFilled] = useState(false)
@@ -50,7 +55,7 @@ export function Form({ title, index, onFormComplete }: Props) {
     <>
       {isLoading ? (
         <Skeleton
-          h={20}
+          h={12}
           rounded="md"
           startColor="gray.600"
           endColor="gray.400"
@@ -94,21 +99,29 @@ export function Form({ title, index, onFormComplete }: Props) {
               )}
             </HStack>
           </Pressable>
+
           <Box
-            style={{
-              display: showForm ? 'flex' : 'none',
-            }}
-            rounded="md"
-            borderWidth={1}
-            borderTopLeftRadius={showForm ? 0 : 'md'}
-            borderTopRightRadius={showForm ? 0 : 'md'}
-            borderColor={isFilled ? 'green.700' : 'gray.400'}
-            borderTopWidth={showForm ? 0 : 1}
+            display={showForm ? 'flex' : 'none'}
             bg="gray.600"
-            p={6}
-            mb={4}
+            color="gray.600"
+            _text={{
+              color: 'gray.600',
+            }}
+            borderColor="gray.600"
           >
-            {forms[index]}
+            <Box
+              rounded="md"
+              borderWidth={1}
+              borderTopLeftRadius={showForm ? 0 : 'md'}
+              borderTopRightRadius={showForm ? 0 : 'md'}
+              borderColor={isFilled ? 'green.700' : 'gray.400'}
+              borderTopWidth={showForm ? 0 : 1}
+              bg="gray.600"
+              p={6}
+              mb={4}
+            >
+              {forms[index]}
+            </Box>
           </Box>
         </>
       )}

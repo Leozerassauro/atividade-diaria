@@ -8,7 +8,7 @@ import { EmptyList } from '@components/EmptyList'
 import { PendencyCard } from '@components/PendencyCard'
 import { NavButton } from '@components/NavButton'
 // Routes
-import { AppNavigatorRoutesProps } from '@routes/app.routes'
+import { AppNavigatorRoutesProps } from '@screens/routes/app.routes'
 
 export function Home() {
   const [pendencies] = useState([

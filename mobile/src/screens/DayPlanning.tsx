@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NavButton } from '@components/NavButton'
 import { ScreenHeader } from '@components/ScreenHeader'
 // Routes
-import { AppNavigatorRoutesProps } from '@routes/app.routes'
+import { AppNavigatorRoutesProps } from '@screens/routes/app.routes'
 
 export function DayPlanning() {
   const navigation = useNavigation<AppNavigatorRoutesProps>()

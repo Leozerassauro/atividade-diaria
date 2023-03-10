@@ -1,5 +1,5 @@
 // Native
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 // import { Alert } from 'react-native'
 import { Box, Center, Icon, Text, VStack } from 'native-base'
@@ -10,8 +10,17 @@ import { Select } from '@components/Select'
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
-export function NextActionForm() {
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
+export function NextActionForm({ onIsCompletelyFilled }: Props) {
   const { control } = useForm()
+  const [isFilled, setIsFilled] = useState(false)
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
 
   return (
     <VStack flex={1} p={4}>
@@ -26,7 +35,7 @@ export function NextActionForm() {
               my={2}
               isChecked={value}
               onChange={(nextValue) => {
-                onChange(nextValue)
+                onChange(nextValue, setIsFilled(!isFilled))
               }}
             />
             {value && <Select setItOpen={true} />}
@@ -43,7 +52,23 @@ export function NextActionForm() {
               title="Revisitar"
               my={2}
               isChecked={value}
-              onChange={(nextValue) => onChange(nextValue)}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
+            />
+            {value && <Input bg="gray.700" mb={4} placeholder="Data" />}
+          </>
+        )}
+      />
+      <Controller
+        control={control}
+        name="followUpVisit"
+        render={({ field: { onChange, value } }) => (
+          <>
+            <Checkbox
+              value=""
+              title="Visita de Acompanhamento"
+              my={2}
+              isChecked={value}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
             />
             {value && <Input bg="gray.700" mb={4} placeholder="Data" />}
           </>
@@ -59,7 +84,7 @@ export function NextActionForm() {
               title="Fazer Proposta"
               my={2}
               isChecked={value}
-              onChange={(nextValue) => onChange(nextValue)}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
             />
             {value && <Input bg="gray.700" mb={4} placeholder="Proposta" />}
           </>
@@ -75,7 +100,7 @@ export function NextActionForm() {
               title="Enviar Info Com/Téc"
               my={2}
               isChecked={value}
-              onChange={(nextValue) => onChange(nextValue)}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
             />
             {value && (
               <Input
@@ -97,7 +122,7 @@ export function NextActionForm() {
               title="Enviar Amostra"
               my={2}
               isChecked={value}
-              onChange={(nextValue) => onChange(nextValue)}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
             />
             {value && <Input bg="gray.700" mb={4} placeholder="Amostra" />}
           </>
@@ -113,7 +138,7 @@ export function NextActionForm() {
               title="Outro"
               my={2}
               isChecked={value}
-              onChange={(nextValue) => onChange(nextValue)}
+              onChange={(nextValue) => onChange(nextValue, setIsFilled(true))}
             />
             {value && <Input bg="gray.700" mb={4} placeholder="Outro" />}
           </>

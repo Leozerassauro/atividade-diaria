@@ -1,16 +1,18 @@
 // Native
 // import { useState } from 'react'
 import { View } from 'react-native'
-import { Box, ScrollView, Text, VStack } from 'native-base'
+import { Box, Center, ScrollView, Text, VStack } from 'native-base'
 // Components
 import { ScreenHeader } from '@components/ScreenHeader'
 import { Form } from '@components/Form'
 import { Button } from '@components/Button'
 import { useState } from 'react'
+import { Location } from '@components/Location'
 
 export function VisitRegistration() {
   const formsTitle = [
     'Cliente',
+    'Segmento do cliente',
     'Status',
     'Atendido por quem',
     'Tomada de decisão',
@@ -32,7 +34,7 @@ export function VisitRegistration() {
   return (
     <Box>
       <ScreenHeader title="Histórico de Visitas" />
-      <Box w="full" bg="gray.400">
+      <Box w="full" h={1} bg="gray.400">
         <View
           style={{
             backgroundColor: '#008943',
@@ -42,11 +44,14 @@ export function VisitRegistration() {
           <Text color="gray.100">{completedForms}</Text>
         </View>
       </Box>
+      <Center my={3}>
+        <Location />
+      </Center>
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <VStack p={8} mb={24}>
+        <VStack p={8} mb={48}>
           {formsTitle.map((title, index) => (
             <Form
               key={index}
