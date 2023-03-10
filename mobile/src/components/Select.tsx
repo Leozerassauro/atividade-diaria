@@ -27,7 +27,6 @@ export function Select({ setItOpen = false }: Props) {
 
   function handleModalSubmit(data: any) {
     setModalVisible(!modalVisible)
-    console.log(data)
   }
 
   function ModalInput() {

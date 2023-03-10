@@ -1,5 +1,5 @@
 // Native
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Heading, HStack, Skeleton, Icon, Pressable, Box } from 'native-base'
 // Assets
 import { Entypo } from '@expo/vector-icons'
@@ -17,24 +17,28 @@ import { ObservationsForm } from './ObservationsForm'
 type Props = {
   title: string
   index: number
+  onFormComplete?: () => void
 }
 
-export function Form({ title, index }: Props) {
+export function Form({ title, index, onFormComplete }: Props) {
   const isLoading = useMemo(() => false, [])
   const [showForm, setShowForm] = useState(false)
   const [forms] = useState([
-    <ClientForm onIsCompletelyFilled={handleIsFilledChange} key={1} />,
+    <ClientForm onIsCompletelyFilled={handleIsCompletelyFilled} key={1} />,
     <StatusForm key={2} />,
-    <ServicedByForm onIsCompletelyFilled={handleIsFilledChange} key={3} />,
-    <DecisionForm onIsCompletelyFilled={handleIsFilledChange} key={4} />,
-    <SizeForm onIsCompletelyFilled={handleIsFilledChange} key={5} />,
+    <ServicedByForm onIsCompletelyFilled={handleIsCompletelyFilled} key={3} />,
+    <DecisionForm onIsCompletelyFilled={handleIsCompletelyFilled} key={4} />,
+    <SizeForm onIsCompletelyFilled={handleIsCompletelyFilled} key={5} />,
     <NextActionForm key={6} />,
-    <ValuesForm key={7} />,
-    <ObservationsForm key={8} />,
+    <ValuesForm onIsCompletelyFilled={handleIsCompletelyFilled} key={7} />,
+    <ObservationsForm
+      onIsCompletelyFilled={handleIsCompletelyFilled}
+      key={8}
+    />,
   ])
   const [isFilled, setIsFilled] = useState(false)
 
-  function handleIsFilledChange(value: boolean) {
+  function handleIsCompletelyFilled(value: boolean) {
     setIsFilled(value)
   }
 

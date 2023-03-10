@@ -52,7 +52,6 @@ export function DatePicker() {
 
   const handleDayPress = (day: { dateString: string }) => {
     const { dateString } = day
-    console.log(dateString)
     setMarkedDates({
       [dateString]: { selected: true, selectedColor: '#008943' },
     })

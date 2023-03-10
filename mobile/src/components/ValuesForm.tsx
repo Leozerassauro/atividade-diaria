@@ -1,10 +1,15 @@
 // Native
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { VStack } from 'native-base'
 // Components
 import { Rating } from '@components/Rating'
 
-export function ValuesForm() {
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
+export function ValuesForm({ onIsCompletelyFilled }: Props) {
+  const [isFilled, setIsFilled] = useState(false)
   const options = ['Atendimento', 'Preço', 'Qualidade', 'Relacionamento']
   const [values, setValues] = useState<{ [key: string]: number }>({
     Atendimento: 0,
@@ -13,22 +18,20 @@ export function ValuesForm() {
     Relacionamento: 0,
   })
 
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
+
   function handleChangeValue(option: string, value: number) {
+    setIsFilled(true)
     setValues((prevValues) => ({
       ...prevValues,
       [option]: value,
     }))
   }
 
-  // function handleSubmitValues() {
-  //   setValues(values)
-  //   console.log(values)
-  // }
-
-  console.log(values)
-
   return (
-    <VStack flex={1} justifyContent="space-between" p={2} rounded="md">
+    <VStack>
       {options.map((option) => (
         <Rating
           key={option}

@@ -26,7 +26,6 @@ export function NextActionForm() {
               my={2}
               isChecked={value}
               onChange={(nextValue) => {
-                console.log(nextValue)
                 onChange(nextValue)
               }}
             />

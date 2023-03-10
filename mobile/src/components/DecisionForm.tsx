@@ -87,9 +87,7 @@ export function DecisionForm({ onIsCompletelyFilled }: Props) {
 
   function handleFormSubmit({ decisionMaker }: FormDataProps) {
     setIsFilled(true)
-    decisionMaker.forEach((item, index) => {
-      console.log(`Índice ${index}:`, item)
-    })
+    decisionMaker.forEach((item, index) => {})
   }
 
   return (

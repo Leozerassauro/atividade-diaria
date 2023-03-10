@@ -40,7 +40,6 @@ export function SignIn() {
 
   function handleSignIn({ user, password }: FormDataProps) {
     // navigation.navigate('signIn')
-    console.log(user, password)
   }
 
   function handleShowPassword() {

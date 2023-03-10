@@ -22,7 +22,6 @@ export function StatusForm() {
   //     Alert.alert('Ops', 'Alguma coisa deu errado com a seleção de status')
   //   }
   // }
-  console.log(status)
 
   return (
     <VStack flex={1} bg="gray.600" p={8} rounded="md">

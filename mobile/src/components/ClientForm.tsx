@@ -61,7 +61,7 @@ export function ClientForm({ onIsCompletelyFilled }: Props) {
   }
 
   function handleSearchButtonPress() {
-    if (searchClient.length === 0) {
+    if (searchClient.length === 0 && showResults === false) {
       setShowResults(false)
     } else {
       setResults(search(searchClient))

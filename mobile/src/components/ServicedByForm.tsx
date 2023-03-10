@@ -87,9 +87,7 @@ export function ServicedByForm({ onIsCompletelyFilled }: Props) {
 
   function handleFormSubmit({ servicedBy }: FormDataProps) {
     setIsFilled(true)
-    servicedBy.forEach((item, index) => {
-      console.log(`Índice ${index}:`, item)
-    })
+    servicedBy.forEach((item, index) => {})
   }
 
   return (

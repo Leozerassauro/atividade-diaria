@@ -1,5 +1,5 @@
 // Native
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 import {
   TextArea,
@@ -14,9 +14,18 @@ import {
 // Assets
 import { Entypo } from '@expo/vector-icons'
 
-export function ObservationsForm() {
+type Props = {
+  onIsCompletelyFilled: (value: boolean) => void
+}
+
+export function ObservationsForm({ onIsCompletelyFilled }: Props) {
   const [observation, setObservation] = useState('')
   const [observations, setObservations] = useState<string[]>([])
+  const [isFilled, setIsFilled] = useState(false)
+
+  useEffect(() => {
+    onIsCompletelyFilled(isFilled)
+  }, [isFilled])
 
   function handleAddTextLine() {
     if (!observation) {
@@ -27,6 +36,7 @@ export function ObservationsForm() {
     }
     setObservations((prevState) => [...prevState, observation])
     setObservation('')
+    setIsFilled(true)
   }
 
   function handleDeleteTextLine(text: string) {
