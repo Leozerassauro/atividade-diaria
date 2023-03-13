@@ -1,5 +1,5 @@
 // Native
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Heading, HStack, Skeleton, Icon, Pressable, Box } from 'native-base'
 // Assets
 import { Entypo } from '@expo/vector-icons'

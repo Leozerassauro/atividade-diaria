@@ -19,9 +19,6 @@ export function ClientSegmentForm({ onIsCompletelyFilled }: Props) {
     setIsFilled(true)
   }
 
-  console.log(isFilled)
-  console.log(segment)
-
   return (
     <Center>
       <Radio.Group
@@ -30,9 +27,29 @@ export function ClientSegmentForm({ onIsCompletelyFilled }: Props) {
         onChange={handleSubmitSegment}
       >
         <Box justifyContent="space-evenly">
-          <Radio value="brewery" my={4} colorScheme="green" bg="gray.700">
+          <Radio value="craft brewery" my={4} colorScheme="green" bg="gray.700">
             <Text color="gray.200" fontSize="md">
-              Cervejaria
+              Cervejaria Craft
+            </Text>
+          </Radio>
+          <Radio
+            value="regional brewery"
+            my={4}
+            colorScheme="green"
+            bg="gray.700"
+          >
+            <Text color="gray.200" fontSize="md">
+              Cervejaria Regional
+            </Text>
+          </Radio>
+          <Radio value="gypsy brewery" my={4} colorScheme="green" bg="gray.700">
+            <Text color="gray.200" fontSize="md">
+              Cervejaria Cigana
+            </Text>
+          </Radio>
+          <Radio value="hnk/ambev" my={4} colorScheme="green" bg="gray.700">
+            <Text color="gray.200" fontSize="md">
+              HNK / AMBEV
             </Text>
           </Radio>
           <Radio value="brewshop" my={4} colorScheme="green" bg="gray.700">

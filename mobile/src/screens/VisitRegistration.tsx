@@ -29,7 +29,6 @@ export function VisitRegistration() {
     } else {
       setCompletedForms(completedForms - 1)
     }
-    console.log(isComplete)
   }
   return (
     <Box>
